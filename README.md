@@ -1,3 +1,2 @@
-# Beeper
-Antivol pour les ruches
-http://beeper.arbaretaz.humbert.fr
+# Mini-projet C++ : le jeu du rami
+Un jeu console de rami
