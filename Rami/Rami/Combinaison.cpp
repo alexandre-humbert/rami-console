@@ -17,9 +17,13 @@ bool Combinaison::isValid()
 
 bool Combinaison::isBrelan()
 {
-	if (cartes_.size() != 3)
+	if (cartes_.size() != 4)
 		return false;
-	else		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur()=="x" || cartes_[1].getValeur() == "x")			&& (cartes_[1].getValeur() == cartes_[2].getValeur() || cartes_[1].getValeur() == "x" || cartes_[2].getValeur() == "x")			&& (cartes_[2].getValeur() == cartes_[0].getValeur() || cartes_[2].getValeur() == "x" || cartes_[0].getValeur() == "x"))			return true;
+	else
+		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur()=="x" || cartes_[1].getValeur() == "x")
+			&& (cartes_[1].getValeur() == cartes_[2].getValeur() || cartes_[1].getValeur() == "x" || cartes_[2].getValeur() == "x")
+			&& (cartes_[2].getValeur() == cartes_[0].getValeur() || cartes_[2].getValeur() == "x" || cartes_[0].getValeur() == "x"))
+			return true;
 		else
 			return false;
 }
@@ -34,7 +38,12 @@ bool Combinaison::isCarre()
 {
 	if (cartes_.size() != 3)
 		return false;
-	else		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur() == "x" || cartes_[1].getValeur() == "x")			&& (cartes_[1].getValeur() == cartes_[2].getValeur() || cartes_[1].getValeur() == "x" || cartes_[2].getValeur() == "x")			&& (cartes_[3].getValeur() == cartes_[0].getValeur() || cartes_[3].getValeur() == "x" || cartes_[0].getValeur() == "x")			&& (cartes_[2].getValeur() == cartes_[3].getValeur() || cartes_[3].getValeur() == "x" || cartes_[2].getValeur() == "x"))			return true;
+	else
+		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur() == "x" || cartes_[1].getValeur() == "x")
+			&& (cartes_[1].getValeur() == cartes_[2].getValeur() || cartes_[1].getValeur() == "x" || cartes_[2].getValeur() == "x")
+			&& (cartes_[3].getValeur() == cartes_[0].getValeur() || cartes_[3].getValeur() == "x" || cartes_[0].getValeur() == "x")
+			&& (cartes_[2].getValeur() == cartes_[3].getValeur() || cartes_[3].getValeur() == "x" || cartes_[2].getValeur() == "x"))
+			return true;
 		else
 			return false;
 	return false;
