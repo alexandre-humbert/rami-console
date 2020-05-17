@@ -2,10 +2,7 @@
 
 
 
-Carte Joueur::choisirCarte()
-{
-	return Carte();
-}
+
 
 void Joueur::nouvelleCombinaison(vector<Carte>)
 {

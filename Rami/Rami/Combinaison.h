@@ -8,6 +8,7 @@ class Combinaison
 	//enum combin { Suite, Brelan, Carré };
 public:
 	Combinaison(vector<Carte>& cartes);
+	vector<Carte> sortCarte(vector<Carte>& cartes);
 	bool isValid();
 	bool isBrelan();
 	bool isSuite();
