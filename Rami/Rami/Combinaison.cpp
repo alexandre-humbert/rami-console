@@ -17,7 +17,7 @@ bool Combinaison::isValid()
 
 bool Combinaison::isBrelan()
 {
-	if (cartes_.size() != 4)
+	if (cartes_.size() != 3)
 		return false;
 	else
 		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur()=="x" || cartes_[1].getValeur() == "x")
@@ -36,7 +36,7 @@ bool Combinaison::isSuite()
 
 bool Combinaison::isCarre()
 {
-	if (cartes_.size() != 3)
+	if (cartes_.size() != 4)
 		return false;
 	else
 		if ((cartes_[0].getValeur() == cartes_[1].getValeur() || cartes_[0].getValeur() == "x" || cartes_[1].getValeur() == "x")
