@@ -1,6 +1,6 @@
 #include "Combinaison.h"
-
-
+#include <iostream>
+using namespace std;
 Combinaison::Combinaison(vector<Carte>& cartes)
 {
 
@@ -8,7 +8,7 @@ Combinaison::Combinaison(vector<Carte>& cartes)
 	cartes_ = cartes;
 }
 
-vector<Carte> Combinaison::sortCarte(vector<Carte>& cartes)
+/*vector<Carte> Combinaison::sortCarte(vector<Carte>& cartes)
 {
 	if (cartes.size() > 1)
 	{
@@ -27,8 +27,8 @@ vector<Carte> Combinaison::sortCarte(vector<Carte>& cartes)
 			cartes[min] = temp;
 		}
 	}
-
-}
+	return cartes;
+}*/
 
 bool Combinaison::isValid()
 {
@@ -41,7 +41,11 @@ bool Combinaison::isBrelan()
 {
 	if (cartes_.size() != 3)
 		return false;
-	else		if ((cartes_[0].getValeur() == cartes_[1].getValeur() )			&& (cartes_[1].getValeur() == cartes_[2].getValeur() )			&& (cartes_[2].getValeur() == cartes_[0].getValeur()))			return true;
+	else
+		if ((cartes_[0] == cartes_[1] )
+			&& (cartes_[1] == cartes_[2] )
+			&& (cartes_[2] == cartes_[0]))
+			return true;
 		else
 			return false;
 }
@@ -53,7 +57,7 @@ bool Combinaison::isSuite()
 	else
 	{
 		vector<Carte> cartes = cartes_;
-		cartes=sortCarte(cartes);
+		//cartes=sortCarte(cartes);
 		Carte joker("-1","-1");
 		bool isJoker = false;
 		for (int i= 0; i < (int)cartes_.size() ; i++)
@@ -66,31 +70,35 @@ bool Combinaison::isSuite()
 		}
 		for (int i = 0; i < (int)cartes.size()-1; i++)
 		{
-			if ((cartes[i] - cartes[i+1])!=1 && cartes[i + 1].getValeur!="x")
+			if (((cartes[i] - cartes[i+1])!=1 )||(cartes[i].getCouleur() != cartes[i + 1].getCouleur()&& cartes[i].getCouleur() !="x" &&cartes[i+1].getCouleur() !="x" )||( cartes[i].getValeur()=="x"&&i>0))
 			{
-				if (isJoker)
+				if ((cartes[i].getValeur() == "x")&&(i > 0)&&((cartes[i-1]- cartes[i+1])==2))
 				{
-					for (int j = (int)cartes.size(); j > i; j--)
-					{
-						cartes[j] = cartes[j - 1];
-					}
-					cartes[i] = joker;
-					i++;
+
+		
 				}
 				else
 					return false;
 			}
 		}
+		return true;
 	}
-					
+		
+			
+
 	return false;
 }
 
 bool Combinaison::isCarre()
 {
-	if (cartes_.size() != 3)
+	if (cartes_.size() != 4)
 		return false;
-	else		if ((cartes_[0].getValeur() == cartes_[1].getValeur())			&& (cartes_[1].getValeur() == cartes_[2].getValeur())			&& (cartes_[3].getValeur() == cartes_[0].getValeur())			&& (cartes_[2].getValeur() == cartes_[3].getValeur()))			return true;
+	else
+		if ((cartes_[0] == cartes_[1])
+			&& (cartes_[1] == cartes_[2])
+			&& (cartes_[3] == cartes_[0])
+			&& (cartes_[2] == cartes_[3]))
+			return true;
 		else
 			return false;
 	return false;

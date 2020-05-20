@@ -1,5 +1,4 @@
 #include "Pioche.h"
-#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -58,14 +57,22 @@ Pioche::Pioche()
 	 carte_.push_back(Carte("12", "T"));
 	 carte_.push_back(Carte("13", "T"));
 	 carte_.push_back(Carte("x", "x"));
+	 taillePioche_ = 53;
+}
+
+int Pioche::getTaille()
+{
+	return taillePioche_;
 }
 
 
 Carte Pioche::tirerCarte()
 {
 	int nombre = 0;
-	srand(time(NULL));
-	nombre = rand();
+
+	int size = carte_.size();
+	nombre = rand()%size;
+	taillePioche_--;
 	return carte_[nombre];
 }
 

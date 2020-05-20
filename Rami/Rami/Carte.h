@@ -10,8 +10,8 @@ class Carte
 public:
 	Carte(string valeur,string couleur);
 	void afficherCarte();
-	bool operator < (const Carte& carte) const;
-	bool operator == (const Carte& carte) const;
+	bool operator < ( Carte& carte) ;
+	bool operator == ( Carte& carte) ;
 	int operator - (Carte& carte);
 	string getValeur();
 	string getCouleur();

@@ -1,5 +1,6 @@
 #pragma once
 #include "Carte.h"
+#include "Pioche.h"
 #include <vector>
 
 class Joueur
@@ -8,13 +9,15 @@ class Joueur
 	int score_;
 	int nombreCarte_;
 	vector<Carte> main;
+	Pioche* pioche_;
 public:
-	Carte choisirCarte();
+	Carte choisirCarte(int i);
 	void nouvelleCombinaison(vector<Carte>);
 	void afficherMain();
 	void sauverJoueur();
 	void chargerJoueur();
-	Joueur();
+	void piocher();
+	Joueur(string nom_, Pioche *pioche);
 	~Joueur();
 };
 
