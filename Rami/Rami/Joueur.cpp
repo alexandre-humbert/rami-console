@@ -42,6 +42,10 @@ Joueur::Joueur(string nom,Pioche *pioche)
 {
 	pioche_ = pioche;
 	nom_ = nom;
+	for (int i = 0; i < 7; i++)
+	{
+		main.push_back(pioche_->tirerCarte());
+	}
 }
 
 
