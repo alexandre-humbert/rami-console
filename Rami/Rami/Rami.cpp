@@ -5,6 +5,7 @@
 #include "Combinaison.h"
 #include "Pioche.h"
 #include "Joueur.h"
+#include "Jeu.h"
 #include <time.h>
 
 using namespace std;
@@ -27,7 +28,9 @@ int main()
 		cout << "Carre";
 	else
 		cout << "non";
-	
+	Jeu Partie;
+	Partie.afficherBootScreen();
+
 
 }
 
