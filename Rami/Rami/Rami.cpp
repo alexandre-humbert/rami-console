@@ -15,9 +15,9 @@ int main()
 {
 	srand(time(NULL));
 	Pioche pioche;
-	/*Joueur joueur("j1",&pioche);
-	for (int i = 0; i < 7; i++)joueur.piocher();
-	joueur.afficherMain();*/
+	pioche.melanger();
+	Joueur joueur("j1",&pioche);
+	joueur.afficherMain();
 	vector<Carte> cartes;
 	cartes.push_back(Carte("5", "Co"));
 	cartes.push_back(Carte("x", "x"));

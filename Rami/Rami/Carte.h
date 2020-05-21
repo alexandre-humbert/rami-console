@@ -8,7 +8,7 @@ class Carte
 	string valeur_;
 	string couleur_;
 public:
-	Carte(string valeur,string couleur);
+	Carte(string valeur="0",string couleur="0");
 	void afficherCarte();
 	bool operator < ( Carte& carte) ;
 	bool operator == ( Carte& carte) ;

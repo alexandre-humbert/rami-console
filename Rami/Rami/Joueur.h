@@ -17,6 +17,7 @@ public:
 	void sauverJoueur();
 	void chargerJoueur();
 	void piocher();
+	void defausser();
 	Joueur(string nom_, Pioche *pioche);
 	~Joueur();
 };

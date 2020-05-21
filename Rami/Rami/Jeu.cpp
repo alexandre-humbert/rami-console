@@ -15,9 +15,10 @@ void Jeu::effectuerTour()
 }
 
 void Jeu::afficherBootScreen() {
+    cout << " " << endl;
     cout << "            _____" << endl;
     cout << "           |A .  | _____" << endl;
-    cout << "           | /.\ ||A ^  | _____" << endl;
+    cout << "           | /.\\ ||A ^  | _____" << endl;
     cout << "           |(_._)|| / \\ ||A _  | _____" << endl;
     cout << "           |  |  || \\ / || ( ) ||A_ _ |" << endl;
     cout << "           |____V||  .  ||( ' )|| (v) | " << endl;

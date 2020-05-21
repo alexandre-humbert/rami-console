@@ -8,7 +8,7 @@ class Jeu
 {
 	vector<Joueur>joueurs_;
 	Plateau	plateau_;
-	
+	int manche_;
 public:
 
 	Jeu();
