@@ -75,6 +75,7 @@ void Jeu::creerPartie() {
     pioche_.melanger();
     nouveauJoueur(nomJoueur, "j1");
     sauverJeu(od);
+    od.waitForChange(gameDir + "/jeu.txt");
 
 }
 void Jeu::rejoindrePartie() {
@@ -93,6 +94,7 @@ void Jeu::rejoindrePartie() {
         rejoindrePartie();
     }
     else {
+        nom_ = nomPartie;
         chargerJeu(od);
         cout << "Entrez votre nom :" << endl;
         string nomJoueur;
@@ -105,6 +107,7 @@ void Jeu::rejoindrePartie() {
 
 void Jeu::nouveauJoueur(string nom, string id) {
     joueurs_.push_back(Joueur(nom, id, &pioche_));
+    nbJoueurs_++;
 }
 
 void Jeu::afficherRegles() {
@@ -120,11 +123,14 @@ void Jeu::sauverJeu(ODrive od) {
     string gameDir = baseDir + '/' + nom_;
     od.refresh(gameDir);
 
+    // Sauvegarde de jeu
     ofstream ofile(od.getFullName(gameDir + "/jeu.txt"));
     ofile << nom_ << endl;
+    ofile << nbJoueurs_ << endl;
     ofile << manche_ << endl;
     ofile.close();
 
+    // Sauvegarde des joueurs
     for (int i = 0; i < joueurs_.size(); i++) {
         string fileName = joueurs_[i].getId();
         ofstream ofile(od.getFullName(gameDir + '/' + fileName + ".txt"));
@@ -135,7 +141,9 @@ void Jeu::sauverJeu(ODrive od) {
         ofile.close();
     }
 
+    // Sauvegarde de la pioche
    ofile.open(od.getFullName(gameDir + "/pioche.txt"));
+   ofile << pioche_.getTaillePioche() << endl;
     for (int i = 0; i < pioche_.getTaillePioche(); i++) {
         ofile << pioche_.getPioche()[i].getValeur() << endl;
         ofile << pioche_.getPioche()[i].getCouleur() << endl;
@@ -143,7 +151,9 @@ void Jeu::sauverJeu(ODrive od) {
     }
     ofile.close();
 
+    // Sauvegarde de la defausse
     ofile.open(od.getFullName(gameDir + "/defausse.txt"));
+    ofile << pioche_.getTailleDefausse() << endl;
     for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
         ofile << pioche_.getDefausse()[i].getValeur() << endl;
         ofile << pioche_.getDefausse()[i].getCouleur() << endl;
@@ -155,9 +165,65 @@ void Jeu::sauverJeu(ODrive od) {
 
 
 void Jeu::chargerJeu(ODrive od) {
+    string baseDir = "Rami";
+    string gameDir = baseDir + '/' + nom_;
+    od.refresh(gameDir);
+
+    // Charger le jeu
+    ifstream ifile(od.getFullName(gameDir + "/jeu.txt"));
+    ifile >> nom_;
+    ifile >> nbJoueurs_;
+    ifile >> manche_;
+    ifile.close();
+
+    // Charger les joueurs
+    for (int i = 0; i < nbJoueurs_; i++) {
+        ifstream ifile(od.getFullName(gameDir + "/j" + to_string(nbJoueurs_)  + ".txt"));
+        string buffer;
+        ifile >> buffer;
+        joueurs_[i].setNom(buffer);
+        ifile >> buffer;
+        joueurs_[i].setId(buffer);
+        ifile >> buffer;
+        joueurs_[i].setScore(stoi(buffer));
+        ifile >> buffer;
+        joueurs_[i].setNombreCarte(stoi(buffer));
+        ifile.close();
+    }
+
+    // Charger la pioche
+    ifile.open(od.getFullName(gameDir + "/pioche.txt"));
+    string buffer;
+    ifile >> buffer;
+    pioche_.setTaillePioche(stoi(buffer));
+    vector<Carte> nouvellePioche;
+    string valeur;
+    string couleur;
+    for (int i = 0; i < pioche_.getTaillePioche(); i++) {
+        ifile >> valeur;
+        ifile >> couleur;
+        nouvellePioche.push_back(Carte(valeur, couleur));
+    }
+    pioche_.setPioche(nouvellePioche);
+    ifile.close();
+
+    // Charger la defausse
+    ifile.open(od.getFullName(gameDir + "/defausse.txt"));
+    ifile >> buffer;
+    pioche_.setTailleDefausse(stoi(buffer));
+    vector<Carte> nouvelleDefausse;
+    for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
+        ifile >> valeur;
+        ifile >> couleur;
+        nouvelleDefausse.push_back(Carte(valeur, couleur));
+    }
+    pioche_.setDefausse(nouvelleDefausse);
+    ifile.close();
+
 
 }
 
 Jeu::~Jeu()
 {
+
 }

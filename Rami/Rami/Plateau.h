@@ -7,7 +7,7 @@ class Plateau
 	int nombreCombinaison_;
 public:
 	Plateau();
-	void affiher();
+	void afficher();
 	void ajouterCombinaison();
 	void modifierCombinaison(Combinaison& Combinaison);
 	~Plateau();

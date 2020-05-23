@@ -15,6 +15,10 @@ public:
 	int getTailleDefausse();
 	vector<Carte> getPioche() { return cartes_; }
 	vector<Carte> getDefausse() { return defausse_; }
+	void setTaillePioche(int value) { taillePioche_ = value; }
+	void setTailleDefausse(int value) { tailleDefausse_ = value; }
+	void setPioche(vector<Carte> value) {cartes_=value; }
+	void setDefausse(vector<Carte> value) { defausse_=value; }
 	void melanger();
 	void renouvelerPioche();
 	Carte tirerCarte();

@@ -6,7 +6,7 @@ Plateau::Plateau()
 {
 }
 
-void Plateau::affiher()
+void Plateau::afficher()
 {
 }
 
