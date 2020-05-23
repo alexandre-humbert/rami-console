@@ -3,9 +3,9 @@
 #include "odrive.h"
 #include <fstream>
 
-Jeu::Jeu(string nom)
+Jeu::Jeu()
 {
-    nom_ = nom;
+
 }
 
 void Jeu::afficherTour()
@@ -38,12 +38,24 @@ void Jeu::afficherBootScreen() {
     cout <<" Appyer sur une touche pour commencer la partie" << endl;
     getchar();
     system("CLS");
-    cout << "C'est partie !!!";
 
+
+}
+void Jeu::demarrerPartie() {
+    system("CLS");
+    cout << "Que voulez-vous faire :" << endl;
+    cout << "1. Créer une nouvelle partie" << endl;
+    cout << "2. Rejoindre une partie:" << endl;
+    string choix;
+    getline(cin, choix);
+    if (choix == "1")	creerPartie();
+    if (choix == "2") rejoindrePartie();
+    else demarrerPartie();
 
 }
 
 void Jeu::creerPartie() {
+    system("CLS");
     string baseDir = "Rami";
     string nomPartie;
     cout << "Entrez le nom de la partie :" << endl;
@@ -56,16 +68,39 @@ void Jeu::creerPartie() {
         od.mkDir(gameDir);
         od.refresh(baseDir);
     }
-    Jeu jeu(nomPartie);
+    nom_ = nomPartie;
     cout << "Entrez votre nom :" << endl;
     string nomJoueur;
     getline(cin, nomJoueur);
-    jeu.nouveauJoueur(nomJoueur, "j1");
+    pioche_.melanger();
+    nouveauJoueur(nomJoueur, "j1");
+    sauverJeu(od);
 
 }
 void Jeu::rejoindrePartie() {
-
-
+    system("CLS");
+    string baseDir = "Rami";
+    string nomPartie;
+    cout << "Entrez le nom de la partie :" << endl;
+    getline(cin, nomPartie);
+    string gameDir = baseDir + '/' + nomPartie;
+    ODrive od;
+    od.refresh(baseDir);
+    if (!od.isDir(gameDir))
+    {
+        cout << "Cette partie n'existe pas" << endl;
+        system("PAUSE");
+        rejoindrePartie();
+    }
+    else {
+        chargerJeu(od);
+        cout << "Entrez votre nom :" << endl;
+        string nomJoueur;
+        getline(cin, nomJoueur);
+        pioche_.melanger();
+        nouveauJoueur(nomJoueur, "j2");
+        sauverJeu(od);
+    }
 }
 
 void Jeu::nouveauJoueur(string nom, string id) {
@@ -74,6 +109,9 @@ void Jeu::nouveauJoueur(string nom, string id) {
 
 void Jeu::afficherRegles() {
     cout << "Voici les règles blabla ... " << endl;
+    cout << " Appyer sur une touche pour commencer la partie" << endl;
+    getchar();
+    system("CLS");
 }
 
 void Jeu::sauverJeu(ODrive od) {
@@ -112,6 +150,7 @@ void Jeu::sauverJeu(ODrive od) {
 
     }   
     ofile.close();
+    od.refresh(gameDir);
 }
 
 

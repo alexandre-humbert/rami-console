@@ -7,15 +7,16 @@
 
 class Jeu
 {
-	string nom_;
+	string nom_ = "Partie";
 	vector<Joueur>joueurs_;
 	Plateau	plateau_;
 	Pioche pioche_;
 	int manche_ = 0;
 public:
 
-	Jeu(string nom);
+	Jeu();
 	void afficherBootScreen();
+	void demarrerPartie();
 	void creerPartie();
 	void rejoindrePartie();
 	void nouveauJoueur(string nom, string id);

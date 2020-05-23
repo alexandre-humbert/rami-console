@@ -13,6 +13,7 @@ using namespace std;
 
 int main()
 {
+	/*
 	srand(time(NULL));
 	Pioche pioche;
 	pioche.melanger();
@@ -28,8 +29,11 @@ int main()
 		cout << "Carre";
 	else
 		cout << "non";
-	Jeu Partie("Ma partie");
+	*/
+	Jeu Partie;
 	Partie.afficherBootScreen();
+	Partie.afficherRegles();
+	Partie.demarrerPartie();
 
 
 }
