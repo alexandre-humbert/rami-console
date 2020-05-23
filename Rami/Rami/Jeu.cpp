@@ -63,6 +63,7 @@ void Jeu::creerPartie() {
     string gameDir = baseDir + '/' + nomPartie;
     ODrive od;
     od.refresh(baseDir);
+    od.sync(baseDir);
     if (!od.isDir(gameDir))
     {
         od.mkDir(gameDir);
@@ -86,7 +87,10 @@ void Jeu::rejoindrePartie() {
     getline(cin, nomPartie);
     string gameDir = baseDir + '/' + nomPartie;
     ODrive od;
+    od.sync(baseDir);
     od.refresh(baseDir);
+    od.sync(gameDir);
+    od.refresh(gameDir);
     if (!od.isDir(gameDir))
     {
         cout << "Cette partie n'existe pas" << endl;
@@ -95,6 +99,7 @@ void Jeu::rejoindrePartie() {
     }
     else {
         nom_ = nomPartie;
+        nouveauJoueur("j1", "j1");
         chargerJeu(od);
         cout << "Entrez votre nom :" << endl;
         string nomJoueur;
@@ -160,7 +165,7 @@ void Jeu::sauverJeu(ODrive od) {
 
     }   
     ofile.close();
-    od.refresh(gameDir);
+    od.sync(gameDir);
 }
 
 
@@ -178,7 +183,7 @@ void Jeu::chargerJeu(ODrive od) {
 
     // Charger les joueurs
     for (int i = 0; i < nbJoueurs_; i++) {
-        ifstream ifile(od.getFullName(gameDir + "/j" + to_string(nbJoueurs_)  + ".txt"));
+        ifstream ifile(od.getFullName(gameDir + "/j" + to_string(i+1)  + ".txt"));
         string buffer;
         ifile >> buffer;
         joueurs_[i].setNom(buffer);
