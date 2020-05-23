@@ -102,13 +102,6 @@ void Pioche::defausserCarte(Carte c)
 }
 
 
-void Pioche::sauverPioche()
-{
-}
-
-void Pioche::chargerPioche()
-{
-}
 
 
 Pioche::~Pioche()

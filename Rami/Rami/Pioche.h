@@ -13,13 +13,13 @@ public:
 	Pioche();
 	int getTaillePioche();
 	int getTailleDefausse();
+	vector<Carte> getPioche() { return cartes_; }
+	vector<Carte> getDefausse() { return defausse_; }
 	void melanger();
 	void renouvelerPioche();
 	Carte tirerCarte();
 	void afficherDefausse();
 	void defausserCarte(Carte c);
-	void sauverPioche();
-	void chargerPioche();
 	~Pioche();
 };
 

@@ -16,7 +16,7 @@ int main()
 	srand(time(NULL));
 	Pioche pioche;
 	pioche.melanger();
-	Joueur joueur("j1",&pioche);
+	Joueur joueur("Alexandre","j1", &pioche);
 	joueur.afficherMain();
 	vector<Carte> cartes;
 	cartes.push_back(Carte("5", "Co"));
@@ -28,7 +28,7 @@ int main()
 		cout << "Carre";
 	else
 		cout << "non";
-	Jeu Partie;
+	Jeu Partie("Ma partie");
 	Partie.afficherBootScreen();
 
 

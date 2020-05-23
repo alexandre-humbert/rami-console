@@ -10,8 +10,6 @@ public:
 	void affiher();
 	void ajouterCombinaison();
 	void modifierCombinaison(Combinaison& Combinaison);
-	void sauverPlateau();
-	void chargerPlateau();
 	~Plateau();
 };
 

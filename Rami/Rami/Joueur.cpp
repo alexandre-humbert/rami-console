@@ -20,13 +20,6 @@ void Joueur::afficherMain()
 	}
 }
 
-void Joueur::sauverJoueur()
-{
-}
-
-void Joueur::chargerJoueur()
-{
-}
 
 void Joueur::piocher()
 {
@@ -59,14 +52,17 @@ void Joueur::defausser() {
 }
 
 
-Joueur::Joueur(string nom,Pioche *pioche)
+Joueur::Joueur(string nom, string id, Pioche *pioche)
 {
 	pioche_ = pioche;
+	id_ = id;
 	nom_ = nom;
+	
 	for (int i = 0; i < 7; i++)
 	{
 		main.push_back(pioche_->tirerCarte());
 	}
+	nombreCarte_ = 7;
 }
 
 

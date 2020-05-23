@@ -6,19 +6,23 @@
 class Joueur
 {
 	string nom_;
-	int score_;
+	string id_;
+	bool premierePose_ = false;
+	int score_ =0;
 	int nombreCarte_;
 	vector<Carte> main;
 	Pioche* pioche_;
 public:
+	string getNom() { return nom_; }
+	string getId() { return id_; }
+	int getScore() { return score_; }
+	int getNombreCarte() { return nombreCarte_; }
 	Carte choisirCarte(int i);
 	void nouvelleCombinaison(vector<Carte>);
 	void afficherMain();
-	void sauverJoueur();
-	void chargerJoueur();
 	void piocher();
 	void defausser();
-	Joueur(string nom_, Pioche *pioche);
+	Joueur(string nom, string id, Pioche* pioche);
 	~Joueur();
 };
 
