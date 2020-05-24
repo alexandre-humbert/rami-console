@@ -10,89 +10,13 @@ Jeu::Jeu()
 
 void Jeu::afficherTour()
 {
-    cout << "Manche" << manche_ << endl;
-    for (int i = 0; i < 2; i++) {
-        cout << "Joueur : " << joueurs_[i].getNom() << endl;
-        cout << "Score : " << joueurs_[i].getScore() << endl;
-        cout << "Nombre cartes : " << joueurs_[i].getNombreCarte() << endl;
-        cout << endl;
-    }
-    if (pioche_.getTailleDefausse() != 0) {
-        cout << "Defausse" << endl;
-        pioche_.afficherDefausse();
-    }
-    cout << "Vos cartes : " << endl;
-    joueurs_[numJoueur_].afficherMain();
+    system("CLS");
+    cout << "Bonjour " << joueurs_[numJoueur_].getNom() << endl;
+    system("PAUSE");
 }
 
 void Jeu::effectuerTour()
 {
-    afficherTour();
-    if (numJoueur_ == 0) {
-        cout << "C'est votre tour" << endl;
-        cout << "Piochez une carte" << endl;
-        system("PAUSE");
-        joueurs_[numJoueur_].piocher();
-        string choix = "0";
-        do {
-            afficherTour();
-            cout << "Que voulez-vous faire ?" << endl;
-            cout << "1. Poser une combinaison" << endl;
-            cout << "2. Defausser une carte" << endl;
-            cout << "3. Abandonner" << endl;
-            getline(cin, choix);
-        } while (choix != "1" && choix != "2" && choix != "3");
-        if (choix == "1") {
-            // Poser combinaison
-            joueurs_[numJoueur_].defausser();
-        }
-        else if (choix == "2") {
-            joueurs_[numJoueur_].defausser();
-        }
-        else {
-            abandonner();
-        }
-        sauverJeu();
-        cout << "Fin de votre tour" << endl;
-        cout << " C'est au joueur adverse de jouer" << endl;
-        od.waitForChange("Rami/" + nom_ + "/jeu.txt");
-        chargerJeu();
-    }
-
-     if (numJoueur_ == 1) {
-         afficherTour();
-         cout << "C'est au joueur adverse de jouer" << endl;
-         od.waitForChange("Rami/" + nom_ + "/jeu.txt");
-         chargerJeu();
-         afficherTour();
-         if (numJoueur_ == 0) {
-             cout << "C'est votre tour" << endl;
-             cout << "Piochez une carte" << endl;
-             system("PAUSE");
-             joueurs_[numJoueur_].piocher();
-             string choix = "0";
-             do {
-                 afficherTour();
-                 cout << "Que voulez-vous faire ?" << endl;
-                 cout << "1. Poser une combinaison" << endl;
-                 cout << "2. Defausser une carte" << endl;
-                 cout << "3. Abandonner" << endl;
-                 getline(cin, choix);
-             } while (choix != "1" && choix != "2" && choix != "3");
-             if (choix == "1") {
-                 // Poser combinaison
-                 joueurs_[numJoueur_].defausser();
-             }
-             else if (choix == "2") {
-                 joueurs_[numJoueur_].defausser();
-             }
-             else {
-                 abandonner();
-             }
-         }
-             sauverJeu();
-             cout << "Fin de votre tour" << endl;
-    }
 }
 
 void Jeu::afficherBootScreen() {
@@ -140,6 +64,7 @@ void Jeu::creerPartie() {
     cout << "Entrez le nom de la partie :" << endl;
     getline(cin, nomPartie);
     string gameDir = baseDir + '/' + nomPartie;
+    ODrive od;
     od.refresh(baseDir);
     od.sync(baseDir);
     if (!od.isDir(gameDir))
@@ -155,10 +80,10 @@ void Jeu::creerPartie() {
     pioche_.melanger();
     nouveauJoueur(nomJoueur, "j1");
     numJoueur_ = 0;
-    sauverJeu();
+    sauverJeu(od);
     while (nbJoueurs_ != 2) {
         od.waitForChange(gameDir + "/jeu.txt");
-        chargerJeu();
+        chargerJeu(od);
     }
     do
     {   od.sync(gameDir + "/j2.txt");
@@ -166,9 +91,6 @@ void Jeu::creerPartie() {
         od.refresh(gameDir);
     }
     while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
-    nouveauJoueur("j2", "j2");
-    chargerJeu();
-
 }
 
 
@@ -176,6 +98,7 @@ void Jeu::rejoindrePartie() {
     system("CLS");
     string baseDir = "Rami";
     string nomPartie;
+    ODrive od;
     cout << "Entrez le nom de la partie :" << endl;
     getline(cin, nomPartie);
     string gameDir = baseDir + '/' + nomPartie;
@@ -197,14 +120,14 @@ void Jeu::rejoindrePartie() {
     else {
         nom_ = nomPartie;
         nouveauJoueur("j1", "j1");
-        chargerJeu();
+        chargerJeu(od);
         cout << "Entrez votre nom :" << endl;
         string nomJoueur;
         getline(cin, nomJoueur);
         pioche_.melanger();
         nouveauJoueur(nomJoueur, "j2");
         numJoueur_ = 1;
-        sauverJeu();
+        sauverJeu(od);
     }
 }
 
@@ -223,7 +146,7 @@ void Jeu::afficherRegles() {
     system("CLS");
 }
 
-void Jeu::sauverJeu() {
+void Jeu::sauverJeu(ODrive od) {
 
     string baseDir = "Rami";
     string gameDir = baseDir + '/' + nom_;
@@ -270,7 +193,7 @@ void Jeu::sauverJeu() {
 }
 
 
-void Jeu::chargerJeu() {
+void Jeu::chargerJeu(ODrive od) {
     string baseDir = "Rami";
     string gameDir = baseDir + '/' + nom_;
     od.refresh(gameDir);
@@ -339,14 +262,9 @@ void Jeu::chargerJeu() {
 
 }
 
-void Jeu::abandonner() {
-    nbJoueurs_--;
-    sauverJeu();
-
-}
-
 Jeu::~Jeu()
 {
+    ODrive od;
     od.delFile("Rami/" + nom_ + "/jeu.txt");
     od.delFile("Rami/" + nom_ + "/j1.txt");
     od.delFile("Rami/" + nom_ + "/j2.txt");
