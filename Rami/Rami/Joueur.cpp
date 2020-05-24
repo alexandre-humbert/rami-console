@@ -1,4 +1,5 @@
 #include "Joueur.h"
+#include "Carte.h"
 #include <iostream>
 Carte Joueur::choisirCarte(int i)
 {
@@ -6,15 +7,36 @@ Carte Joueur::choisirCarte(int i)
 	return main[i];
 }
 
-void Joueur::nouvelleCombinaison(vector<Carte>)
+Combinaison Joueur::nouvelleCombinaison()
 {
+	vector<int> ids;
+	int id = 0;
+	do
+	{
+		
+		afficherMain();
+		cout << "Choisir l'id d'une carte et -1 pour finir : " << endl;
+		cin >> id;
+		if (id = !- 1)
+		{
+			ids.push_back(id);
+		}
+	} while (id = !- 1);
+		vector<Carte> cartes;
+		for (int i=0; i < ids.size(); i++)
+		{
+			cartes.push_back(main[i]);
+		}
+		Combinaison combi(cartes);
+		return combi;
+
 }
 
 void Joueur::afficherMain()
 {
 	for (int i = 0; i < (int)main.size(); i++)
 	{
-		std::cout << i+1 << ".";
+		std::cout << i + 1 << ".";
 		main[i].afficherCarte();
 		std::cout << " \n";
 	}
@@ -25,8 +47,10 @@ void Joueur::piocher()
 {
 	if (pioche_->getTaillePioche() != 0)
 	{
-
-		main.push_back(pioche_->tirerCarte());
+		Carte c = pioche_->tirerCarte();
+		cout << "Carte piochee : ";
+		c.afficherCarte();
+		main.push_back(c);
 	}
 	else {
 		if (pioche_->getTailleDefausse() != 0) {
@@ -57,7 +81,7 @@ Joueur::Joueur(string nom, string id, Pioche *pioche)
 	pioche_ = pioche;
 	id_ = id;
 	nom_ = nom;
-	
+
 	for (int i = 0; i < 7; i++)
 	{
 		main.push_back(pioche_->tirerCarte());

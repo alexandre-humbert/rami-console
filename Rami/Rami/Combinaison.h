@@ -1,5 +1,8 @@
 #pragma once
 #include <vector> 
+#include <string>
+#include <sstream>
+#include <algorithm> 
 #include "Carte.h"
 
 class Combinaison
@@ -13,6 +16,7 @@ public:
 	bool isBrelan();
 	bool isSuite();
 	bool isCarre();
+	int getScore();
 	~Combinaison();
 };
 

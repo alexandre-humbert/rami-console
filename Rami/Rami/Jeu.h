@@ -13,7 +13,8 @@ class Jeu
 	vector<Joueur>joueurs_;
 	Plateau	plateau_;
 	Pioche pioche_;
-	int manche_ = 0;
+	int manche_ = 1;
+	ODrive od;
 public:
 
 	Jeu();
@@ -25,8 +26,8 @@ public:
 	void afficherTour();
 	void effectuerTour();
 	void afficherRegles();
-	void sauverJeu(ODrive od);
-	void chargerJeu(ODrive od);
+	void sauverJeu();
+	void chargerJeu();
+	void abandonner();
 	~Jeu();
 };
-

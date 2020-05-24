@@ -104,6 +104,47 @@ bool Combinaison::isCarre()
 	return false;
 }
 
+int Combinaison::getScore()
+{
+	int score = 0;
+	if (isBrelan())
+	{
+		istringstream is1(cartes_[0].getValeur());
+		int n1;
+		is1 >> n1;
+		score = 3 * min(n1,11);
+	}
+	if (isCarre())
+	{
+		istringstream is1(cartes_[0].getValeur());
+		int n1;
+		is1 >> n1;
+		score = 4 * min(n1, 11);
+	}
+	for (int i = 0; cartes_.size(); i++)
+	{
+		if (cartes_[0].getValeur() != "1")
+		{
+			istringstream is1(cartes_[0].getValeur());
+			int n1;
+			is1 >> n1;
+			score += min(n1, 11);
+		}
+		else
+		{
+			if (i == 0)
+			{
+				score += 1;
+			}
+			else
+			{
+				score += 11;
+			}
+		}
+	}
+	return score;
+}
+
 
 Combinaison::~Combinaison()
 {

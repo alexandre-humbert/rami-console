@@ -10,11 +10,12 @@ void Plateau::afficher()
 {
 }
 
-void Plateau::ajouterCombinaison()
+bool Plateau::ajouterCombinaison(Combinaison& Combinaison)
 {
+
 }
 
-void Plateau::modifierCombinaison(Combinaison & Combinaison)
+bool Plateau::modifierCombinaison(Combinaison & Combinaison)
 {
 }
 
