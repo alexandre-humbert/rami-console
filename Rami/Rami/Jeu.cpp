@@ -10,6 +10,9 @@ Jeu::Jeu()
 
 void Jeu::afficherTour()
 {
+    system("CLS");
+    cout << "Bonjour " << joueurs_[numJoueur_].getNom() << endl;
+    system("PAUSE");
 }
 
 void Jeu::effectuerTour()
@@ -35,7 +38,7 @@ void Jeu::afficherBootScreen() {
     cout << "| |\\ \\ | (_| || | | | | || |    | \\__/\\    |_|      |_|  " << endl;
     cout << "\\_| \\_| \\__,_||_| |_| |_||_|     \\____/                " << endl;
     cout << endl;
-    cout <<" Appyer sur une touche pour commencer la partie" << endl;
+    cout <<" Appuyez sur une touche pour commencer la partie" << endl;
     getchar();
     system("CLS");
 
@@ -48,9 +51,9 @@ void Jeu::demarrerPartie() {
     cout << "2. Rejoindre une partie:" << endl;
     string choix;
     getline(cin, choix);
-    if (choix == "1")	creerPartie();
-    if (choix == "2") rejoindrePartie();
-    else demarrerPartie();
+    if (choix == "1") { creerPartie(); }
+    else if (choix == "2") { rejoindrePartie(); }
+    else { demarrerPartie(); }
 
 }
 
@@ -69,29 +72,46 @@ void Jeu::creerPartie() {
         od.mkDir(gameDir);
         od.refresh(baseDir);
     }
+
     nom_ = nomPartie;
     cout << "Entrez votre nom :" << endl;
     string nomJoueur;
     getline(cin, nomJoueur);
     pioche_.melanger();
     nouveauJoueur(nomJoueur, "j1");
+    numJoueur_ = 0;
     sauverJeu(od);
-    od.waitForChange(gameDir + "/jeu.txt");
-
+    while (nbJoueurs_ != 2) {
+        od.waitForChange(gameDir + "/jeu.txt");
+        chargerJeu(od);
+    }
+    do
+    {   od.sync(gameDir + "/j2.txt");
+        od.sync(gameDir);
+        od.refresh(gameDir);
+    }
+    while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
 }
+
+
 void Jeu::rejoindrePartie() {
     system("CLS");
     string baseDir = "Rami";
     string nomPartie;
+    ODrive od;
     cout << "Entrez le nom de la partie :" << endl;
     getline(cin, nomPartie);
     string gameDir = baseDir + '/' + nomPartie;
-    ODrive od;
-    od.sync(baseDir);
-    od.refresh(baseDir);
+    od.mkDir(gameDir);
+
     od.sync(gameDir);
+    od.sync(gameDir + "/jeu.txt");
+    od.sync(gameDir + "/j1.txt");
+    od.sync(gameDir + "/pioche.txt");
+    od.sync(gameDir + "/defausse.txt");
     od.refresh(gameDir);
-    if (!od.isDir(gameDir))
+
+    if (!ifstream(od.getFullName(gameDir + "/jeu.txt")).good())
     {
         cout << "Cette partie n'existe pas" << endl;
         system("PAUSE");
@@ -106,6 +126,7 @@ void Jeu::rejoindrePartie() {
         getline(cin, nomJoueur);
         pioche_.melanger();
         nouveauJoueur(nomJoueur, "j2");
+        numJoueur_ = 1;
         sauverJeu(od);
     }
 }
@@ -116,8 +137,11 @@ void Jeu::nouveauJoueur(string nom, string id) {
 }
 
 void Jeu::afficherRegles() {
-    cout << "Voici les règles blabla ... " << endl;
-    cout << " Appyer sur une touche pour commencer la partie" << endl;
+    cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
+    cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
+    cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
+    cout << "Bonne chance " << endl;
+    cout << " Appuyez sur une touche pour commencer la partie" << endl;
     getchar();
     system("CLS");
 }
@@ -176,59 +200,74 @@ void Jeu::chargerJeu(ODrive od) {
 
     // Charger le jeu
     ifstream ifile(od.getFullName(gameDir + "/jeu.txt"));
-    ifile >> nom_;
-    ifile >> nbJoueurs_;
-    ifile >> manche_;
-    ifile.close();
-
+    if (ifile.good()) {
+        ifile >> nom_;
+        ifile >> nbJoueurs_;
+        ifile >> manche_;
+        ifile.close();
+    }
     // Charger les joueurs
     for (int i = 0; i < nbJoueurs_; i++) {
         ifstream ifile(od.getFullName(gameDir + "/j" + to_string(i+1)  + ".txt"));
-        string buffer;
-        ifile >> buffer;
-        joueurs_[i].setNom(buffer);
-        ifile >> buffer;
-        joueurs_[i].setId(buffer);
-        ifile >> buffer;
-        joueurs_[i].setScore(stoi(buffer));
-        ifile >> buffer;
-        joueurs_[i].setNombreCarte(stoi(buffer));
-        ifile.close();
+        if (ifile.good()) {
+            string buffer;
+            ifile >> buffer;
+            joueurs_[i].setNom(buffer);
+            ifile >> buffer;
+            joueurs_[i].setId(buffer);
+            ifile >> buffer;
+            joueurs_[i].setScore(stoi(buffer));
+            ifile >> buffer;
+            joueurs_[i].setNombreCarte(stoi(buffer));
+            ifile.close();
+        }
     }
 
     // Charger la pioche
     ifile.open(od.getFullName(gameDir + "/pioche.txt"));
-    string buffer;
-    ifile >> buffer;
-    pioche_.setTaillePioche(stoi(buffer));
-    vector<Carte> nouvellePioche;
-    string valeur;
-    string couleur;
-    for (int i = 0; i < pioche_.getTaillePioche(); i++) {
-        ifile >> valeur;
-        ifile >> couleur;
-        nouvellePioche.push_back(Carte(valeur, couleur));
+    if (ifile.good()) {
+        string buffer;
+        ifile >> buffer;
+        pioche_.setTaillePioche(stoi(buffer));
+        vector<Carte> nouvellePioche;
+        string valeur;
+        string couleur;
+        for (int i = 0; i < pioche_.getTaillePioche(); i++) {
+            ifile >> valeur;
+            ifile >> couleur;
+            nouvellePioche.push_back(Carte(valeur, couleur));
+        }
+        pioche_.setPioche(nouvellePioche);
+        ifile.close();
     }
-    pioche_.setPioche(nouvellePioche);
-    ifile.close();
 
     // Charger la defausse
     ifile.open(od.getFullName(gameDir + "/defausse.txt"));
-    ifile >> buffer;
-    pioche_.setTailleDefausse(stoi(buffer));
-    vector<Carte> nouvelleDefausse;
-    for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
-        ifile >> valeur;
-        ifile >> couleur;
-        nouvelleDefausse.push_back(Carte(valeur, couleur));
+    if (ifile.good()) {
+        string buffer;
+        ifile >> buffer;
+        pioche_.setTailleDefausse(stoi(buffer));
+        vector<Carte> nouvelleDefausse;
+        string valeur;
+        string couleur;
+        for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
+            ifile >> valeur;
+            ifile >> couleur;
+            nouvelleDefausse.push_back(Carte(valeur, couleur));
+        }
+        pioche_.setDefausse(nouvelleDefausse);
+        ifile.close();
     }
-    pioche_.setDefausse(nouvelleDefausse);
-    ifile.close();
 
 
 }
 
 Jeu::~Jeu()
 {
-
+    ODrive od;
+    od.delFile("Rami/" + nom_ + "/jeu.txt");
+    od.delFile("Rami/" + nom_ + "/j1.txt");
+    od.delFile("Rami/" + nom_ + "/j2.txt");
+    od.delFile("Rami/" + nom_ + "/pioche.txt");
+    od.delFile("Rami/" + nom_ + "/defausse.txt");
 }

@@ -34,6 +34,7 @@ int main()
 	Partie.afficherBootScreen();
 	Partie.afficherRegles();
 	Partie.demarrerPartie();
+	Partie.afficherTour();
 
 
 }

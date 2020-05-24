@@ -9,6 +9,7 @@ class Jeu
 {
 	string nom_ = "Partie";
 	int nbJoueurs_ = 0;
+	int numJoueur_ = 0;
 	vector<Joueur>joueurs_;
 	Plateau	plateau_;
 	Pioche pioche_;
