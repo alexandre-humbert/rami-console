@@ -25,8 +25,10 @@ void Joueur::piocher()
 {
 	if (pioche_->getTaillePioche() != 0)
 	{
-
-		main.push_back(pioche_->tirerCarte());
+		Carte c = pioche_->tirerCarte();
+		cout << "Carte piochee : ";
+		c.afficherCarte();
+		main.push_back(c);
 	}
 	else {
 		if (pioche_->getTailleDefausse() != 0) {
