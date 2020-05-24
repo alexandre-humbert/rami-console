@@ -166,6 +166,9 @@ void Jeu::creerPartie() {
         od.refresh(gameDir);
     }
     while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
+    nouveauJoueur("j2", "j2");
+    chargerJeu();
+
 }
 
 
