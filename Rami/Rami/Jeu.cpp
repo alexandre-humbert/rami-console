@@ -27,29 +27,26 @@ void Jeu::afficherTour()
 
 void Jeu::effectuerTour()
 {
-	system("CLS");
-		if (numJoueur_ == 0)
+	if (numJoueur_ == 0)
+	{
+		cout << "C'est votre tour" << endl;
+		cout << "Piochez une carte" << endl;
+		system("PAUSE");
+		joueurs_[numJoueur_].piocher();
+		string choix = "0";
+		do
 		{
-			cout << "_________________" << endl;
-			cout << "C'est votre tour" << endl;
-			cout << "_________________" << endl;
-			cout << "Piochez une carte" << endl;
-			system("PAUSE");
-			joueurs_[numJoueur_].piocher();
-			string choix = "0";
-			do
-			{
-				afficherTour();
-				cout << "Que voulez-vous faire ?" << endl;
-				cout << "1. Poser des combinaison" << endl;
-				cout << "2. Defausser une carte" << endl;
-				cout << "3. Abandonner" << endl;
-				getline(cin, choix);
-			} while (choix != "1" && choix != "2" && choix != "3");
-			if (choix == "1")
-			{
-				poseCombinaison();
-			}
+			afficherTour();
+			cout << "Que voulez-vous faire ?" << endl;
+			cout << "1. Poser des combinaison" << endl;
+			cout << "2. Defausser une carte" << endl;
+			cout << "3. Abandonner" << endl;
+			getline(cin, choix);
+		} while (choix != "1" && choix != "2" && choix != "3");
+		if (choix == "1")
+		{
+			poseCombinaison();
+		}
 		else if (choix == "2") {
 			joueurs_[numJoueur_].defausser();
 		}
@@ -57,9 +54,7 @@ void Jeu::effectuerTour()
 			abandonner();
 		}
 		sauverJeu();
-		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
-		cout << "_________________" << endl;
 		manche_++;
 		cout << " C'est au joueur adverse de jouer" << endl;
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
@@ -71,9 +66,7 @@ void Jeu::effectuerTour()
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
 		afficherTour();
-		cout << "_________________" << endl;
 		cout << "C'est votre tour" << endl;
-		cout << "_________________" << endl;
 		cout << "Piochez une carte" << endl;
 		system("PAUSE");
 		joueurs_[numJoueur_].piocher();
@@ -96,9 +89,7 @@ void Jeu::effectuerTour()
 			abandonner();
 		}
 		sauverJeu();
-		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
-		cout << "_________________" << endl;
 		manche_++;
 	}
 }
@@ -131,7 +122,7 @@ void Jeu::afficherBootScreen() {
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
-	cout << "1. Creer une nouvelle partie" << endl;
+	cout << "1. Créer une nouvelle partie" << endl;
 	cout << "2. Rejoindre une partie:" << endl;
 	string choix;
 	getline(cin, choix);
@@ -164,7 +155,6 @@ void Jeu::creerPartie() {
 	nouveauJoueur(nomJoueur, "j1");
 	numJoueur_ = 0;
 	sauverJeu();
-	cout << "En attente du joueur adverse" << endl;
 	od.waitForChange(gameDir + "/jeu.txt");
 	do
 	{
@@ -223,6 +213,7 @@ void Jeu::nouveauJoueur(string nom, string id) {
 void Jeu::poseCombinaison()
 {
 	vector<Combinaison> combinaisons;
+	vector<Carte> main;
 	string ch = "o";
 	while (ch == "o")
 	{
@@ -230,6 +221,8 @@ void Jeu::poseCombinaison()
 		if (combinaison.isValid())
 		{
 			combinaisons.push_back(combinaison);
+			
+			
 		}
 		else
 		{
@@ -242,9 +235,18 @@ void Jeu::poseCombinaison()
 	{
 		if (joueurs_[numJoueur_].getPose())
 		{
-			for (int i = 0; i < combinaisons.size(); i++)
+			for (int k = 0; k < combinaisons.size(); k++)
 			{
-				plateau_.ajouterCombinaison(combinaisons[i]);
+				plateau_.ajouterCombinaison(combinaisons[k]);
+				for (int j = 0; j < joueurs_[numJoueur_].getMain().size(); j++)
+				{
+					for (int i = 0; i < combinaisons[k].getCartes().size(); i++)
+					{
+						if (joueurs_[numJoueur_].getMain()[i].getValeur() != combinaisons[k].getCartes()[j].getValeur()
+							|| joueurs_[numJoueur_].getMain()[i].getCouleur() != combinaisons[k].getCartes()[j].getCouleur())
+							main.push_back(joueurs_[numJoueur_].getMain()[i]);
+					}
+				}
 			}
 		}
 		else
@@ -274,10 +276,10 @@ void Jeu::changeCombinaison()
 	int id = 0;
 	plateau_.afficher();
 	cout << "Choisissez la combinaison à modifier : " << endl;
-	cin>> id;
+	cin >> id;
 	string choix = "0";
 	do
-	{	
+	{
 		cout << "Que voulez vous faire ?";
 		cout << "1. Rajouter une carte à l'avant";
 		cout << "2. Rajouter une carte à l'arrière";
@@ -295,7 +297,7 @@ void Jeu::changeCombinaison()
 }
 
 void Jeu::afficherRegles() {
-	cout << "Voici les regles et le fonctionnement de ce jeu. " << endl;
+	cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
@@ -342,28 +344,25 @@ void Jeu::sauverJeu() {
 
 	// Sauvegarde du plateau
 	ofile.open(od.getFullName(gameDir + "/plateau.txt"));
-	ofile << plateau_.getnombreCombinaison();
 	ofile << plateau_.getnombreCombinaison() << endl;
 	for (int i = 0; i < plateau_.getnombreCombinaison(); i++)
 	{
-		for (int j=0; j < (plateau_.getCombinaison(i)).getCartes().size(); j++) {
+		for (int j = 0; j < (plateau_.getCombinaison(i)).getCartes().size(); j++) {
 			ofile << plateau_.getCombinaison(i).getCarte(j).getValeur() << endl;
 			ofile << plateau_.getCombinaison(i).getCarte(j).getCouleur() << endl;
 		}
 		ofile << "NB" << endl;
-		ofile << "NB" << endl;
 	}
 
 	ofile.close();
+	od.sync(gameDir);
 
 
 	// Sauvegarde de jeu
 	ofile.open(od.getFullName(gameDir + "/jeu.txt"));
 	ofile << nom_ << endl;
 	ofile << nbJoueurs_ << endl;
-	ofile << manche_ << endl;
 	ofile.close();
-	od.sync(gameDir);
 }
 
 
@@ -432,27 +431,6 @@ void Jeu::chargerJeu() {
 		ifile.close();
 	}
 
-	// Sauvegarde du plateau
-	ifile.open(od.getFullName(gameDir + "/plateau.txt"));
-	if (ifile.good()) {
-		int nb;
-		ifile >> nb;
-		plateau_.setNombreCombinaison(nb);
-		string valeur = " ";
-		string couleur = " ";
-		int i=0;
-		vector<Combinaison> combinaisons;
-		while ( i < nb){
-			Combinaison c;
-			while (valeur != "NC") {
-				ifile >> valeur;
-				ifile >> couleur;
-				c.ajouterCarte(Carte(valeur, couleur));
-			}
-			combinaisons.push_back(c);
-		}
-		plateau_.setCombinaisons(combinaisons);
-	}
 
 }
 

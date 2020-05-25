@@ -1,12 +1,6 @@
 #include "Combinaison.h"
 #include <iostream>
 using namespace std;
-
-Combinaison::Combinaison()
-{
-
-}
-
 Combinaison::Combinaison(vector<Carte>& cartes)
 {
 
