@@ -153,7 +153,6 @@ void Jeu::creerPartie() {
 	getline(cin, nomJoueur);
 	pioche_.melanger();
 	nouveauJoueur(nomJoueur, "j1");
-	nouveauJoueur("j2", "j2");
 	numJoueur_ = 0;
 	sauverJeu();
 	while (nbJoueurs_ != 2) {
@@ -360,6 +359,7 @@ void Jeu::chargerJeu() {
 		ifile.close();
 	}
 	// Charger les joueurs
+	if (nbJoueurs_ > joueurs_.size()){ nouveauJoueur("j", "j"); }
 	for (int i = 0; i < nbJoueurs_; i++) {
 		ifstream ifile(od.getFullName(gameDir + "/j" + to_string(i + 1) + ".txt"));
 		if (ifile.good()) {
