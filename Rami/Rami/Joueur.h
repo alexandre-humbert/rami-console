@@ -4,8 +4,8 @@
 #include "Combinaison.h"
 #include <vector>
 /**
-La classe joueur reprÈsente un joueur.
-Elle contient son nom, un identifiant gÈnÈrique, l'information s'il ‡ dÈj‡ posÈ une combinaison ou non,
+La classe joueur repr√©sente un joueur.
+Elle contient son nom, un identifiant g√©n√©rique, l'information s'il √† d√©j√† pos√© une combinaison ou non,
 son score, son nombre de cartes, ses cartes et un pointeur vers la pioche.
 */
 class Joueur
@@ -29,7 +29,8 @@ public:
 	void setScore(int value) { score_ = value; }
 	void setNombreCarte(int value) { nombreCarte_ = value; }
 	Carte choisirCarte(int i);
-	Combinaison nouvelleCombinaison();
+	vector<Carte> getMain() { return main; }
+	void afficherMain(vector<Carte> retir);
 	void afficherMain();
 	void piocher();
 	void defausser();
