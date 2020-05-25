@@ -32,6 +32,7 @@ public:
 	void changeCombinaison();
 	void afficherRegles();
 	void sauverJeu();
+	void exec();
 	void chargerJeu();
 	void abandonner();
 	~Jeu();
