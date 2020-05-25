@@ -6,32 +6,32 @@ Carte Joueur::choisirCarte(int i)
 
 	return main[i];
 }
-// Retourne une combinason de cartes séléectionnées par le joueur.
+// Retourne une combinason de cartes sÃ©lÃ©ectionnÃ©es par le joueur.
 Combinaison Joueur::nouvelleCombinaison()
 {
 	vector<int> ids;
+	vector<Carte> retir;
 	int id = 0;
 	do
 	{
-		
-		afficherMain();
+		afficherMain(retir);
 		cout << "Choisir l'id d'une carte et -1 pour finir : " << endl;
 		cin >> id;
-		if (id != - 1)
+		if (id != -1)
 		{
 			ids.push_back(id);
 		}
-	} while (id != - 1);
-		vector<Carte> cartes;
-		for (int i=0; i < ids.size(); i++)
-		{
-			cartes.push_back(main[i]);
-		}
-		Combinaison combi(cartes);
-		return combi;
+	} while (id != -1);
+	vector<Carte> cartes;
+	for (int i = 0; i < ids.size(); i++)
+	{
+		cartes.push_back(main[i]);
+	}
+	Combinaison combi(cartes);
+	return combi;
 
 }
-// Affiche les cartes que le joueur à en main.
+// Affiche les cartes que le joueur Ã  en main.
 void Joueur::afficherMain()
 {
 	for (int i = 0; i < (int)main.size(); i++)
@@ -42,7 +42,7 @@ void Joueur::afficherMain()
 	}
 }
 
-// Permet au joueur de piocher une carte de la pioche qui est renouvelée si besoin.
+// Permet au joueur de piocher une carte de la pioche qui est renouvelÃ©e si besoin.
 void Joueur::piocher()
 {
 	if (pioche_->getTaillePioche() != 0)
@@ -64,7 +64,7 @@ void Joueur::piocher()
 	}
 }
 
-// Permet au joueur de défausser une carte choisie.
+// Permet au joueur de dÃ©fausser une carte choisie.
 void Joueur::defausser() {
 	afficherMain();
 	int choix;
