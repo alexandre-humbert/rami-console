@@ -131,7 +131,7 @@ void Jeu::afficherBootScreen() {
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
-	cout << "1. Créer une nouvelle partie" << endl;
+	cout << "1. Creer une nouvelle partie" << endl;
 	cout << "2. Rejoindre une partie:" << endl;
 	string choix;
 	getline(cin, choix);
@@ -361,6 +361,7 @@ void Jeu::sauverJeu() {
 	ofile.open(od.getFullName(gameDir + "/jeu.txt"));
 	ofile << nom_ << endl;
 	ofile << nbJoueurs_ << endl;
+	ofile << manche_ << endl;
 	ofile.close();
 	od.sync(gameDir);
 }
