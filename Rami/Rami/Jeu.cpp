@@ -223,6 +223,7 @@ void Jeu::nouveauJoueur(string nom, string id) {
 void Jeu::poseCombinaison()
 {
 	vector<Combinaison> combinaisons;
+	vector<Carte> main;
 	string ch = "o";
 	while (ch == "o")
 	{
@@ -230,6 +231,8 @@ void Jeu::poseCombinaison()
 		if (combinaison.isValid())
 		{
 			combinaisons.push_back(combinaison);
+			
+			
 		}
 		else
 		{
@@ -242,9 +245,21 @@ void Jeu::poseCombinaison()
 	{
 		if (joueurs_[numJoueur_].getPose())
 		{
-			for (int i = 0; i < combinaisons.size(); i++)
+			for (int k = 0; k < combinaisons.size(); k++)
 			{
-				plateau_.ajouterCombinaison(combinaisons[i]);
+				plateau_.ajouterCombinaison(combinaisons[k]);
+				for (int j = 0; j < joueurs_[numJoueur_].getMain().size(); j++)
+				{
+					bool notRetir = true;
+					for (int i = 0; i < combinaisons[k].getCartes().size(); i++)
+					{
+						if (joueurs_[numJoueur_].getMain()[i].getValeur() == combinaisons[k].getCartes()[j].getValeur()
+							&& joueurs_[numJoueur_].getMain()[i].getCouleur() == combinaisons[k].getCartes()[j].getCouleur())
+							notRetir = false;
+					}
+					if(notRetir)
+					main.push_back(joueurs_[numJoueur_].getMain()[j]);
+				}
 			}
 		}
 		else
@@ -273,14 +288,14 @@ void Jeu::changeCombinaison()
 {
 	int id = 0;
 	plateau_.afficher();
-	cout << "Choisissez la combinaison à modifier : " << endl;
+	cout << "Choisissez la combinaison Ã  modifier : " << endl;
 	cin>> id;
 	string choix = "0";
 	do
 	{	
 		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte à l'avant";
-		cout << "2. Rajouter une carte à l'arrière";
+		cout << "1. Rajouter une carte Ã  l'avant";
+		cout << "2. Rajouter une carte Ã  l'arriÃ¨re";
 		if (plateau_.getCombinaison(id).hasJoker())
 		{
 			cout << "3. Remplacer le joker";
