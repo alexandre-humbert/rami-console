@@ -1,10 +1,12 @@
 ﻿#include "Pioche.h"
 #include <stdio.h>
-#include <iostream>
 #include <stdlib.h>
-#include <algorithm> 
+#include <algorithm>
+#include <iostream>
+#include <ctime>
 
 using namespace std;
+
 Pioche::Pioche()
 {
 	cartes_.push_back(Carte("1", "Ca"));
@@ -82,8 +84,9 @@ void Pioche::renouvelerPioche() {
 	melanger();
 }
 
-// Permet de malanger la pioche
+// Permet de melanger la pioche
 void Pioche::melanger() {
+	srand(unsigned(time(0)));
 	random_shuffle(cartes_.begin(), cartes_.end());
 }
 // Retourne une carte de la pioche en supprimant cette carte de la pioche
@@ -96,13 +99,13 @@ Carte Pioche::tirerCarte()
 	return c;
 }
 
-// Affiche la premičre carte de la défausse
+// Affiche la premiere carte de la défausse
 void Pioche::afficherDefausse() {
 	(defausse_.back()).afficherCarte();
 	cout << endl;
 }
 
-// Ajoute une carte ŕ la défausse
+// Ajoute une carte a la défausse
 void Pioche::defausserCarte(Carte c)
 {
 	defausse_.push_back(c);

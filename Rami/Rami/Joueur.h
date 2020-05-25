@@ -30,8 +30,6 @@ public:
 	void setNombreCarte(int value) { nombreCarte_ = value; }
 	Carte choisirCarte(int i);
 	Combinaison nouvelleCombinaison();
-	vector<Carte> getMain() { return main; }
-	void afficherMain(vector<Carte> retir);
 	void afficherMain();
 	void piocher();
 	void defausser();
