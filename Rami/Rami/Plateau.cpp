@@ -25,6 +25,7 @@ void Plateau::afficherCombinaison(int id)
 void Plateau::ajouterCombinaison(Combinaison& Combinaison)
 {
 	combinaisons_.push_back(Combinaison);
+	nombreCombinaison_++;
 }
 
 void Plateau::modifierCombinaison(Combinaison & Combinaison,int id)

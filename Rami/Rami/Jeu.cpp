@@ -153,6 +153,7 @@ void Jeu::creerPartie() {
 	getline(cin, nomJoueur);
 	pioche_.melanger();
 	nouveauJoueur(nomJoueur, "j1");
+	nouveauJoueur("j2", "j2");
 	numJoueur_ = 0;
 	sauverJeu();
 	while (nbJoueurs_ != 2) {
@@ -182,6 +183,7 @@ void Jeu::rejoindrePartie() {
 	od.sync(gameDir + "/j1.txt");
 	od.sync(gameDir + "/pioche.txt");
 	od.sync(gameDir + "/defausse.txt");
+	od.sync(gameDir + "/plateau.txt");
 	od.refresh(gameDir);
 
 	if (!ifstream(od.getFullName(gameDir + "/jeu.txt")).good())
@@ -334,6 +336,11 @@ void Jeu::sauverJeu() {
 		ofile << pioche_.getDefausse()[i].getCouleur() << endl;
 
 	}
+
+	// Sauvegarde du plateau
+	ofile.open(od.getFullName(gameDir + "/plateau.txt"));
+	ofile << plateau_.getnombreCombinaison() << endl;
+
 	ofile.close();
 	od.sync(gameDir);
 }
@@ -433,4 +440,5 @@ Jeu::~Jeu()
 	od.delFile("Rami/" + nom_ + "/j2.txt");
 	od.delFile("Rami/" + nom_ + "/pioche.txt");
 	od.delFile("Rami/" + nom_ + "/defausse.txt");
+	od.delFile("Rami/" + nom_ + "/plateau.txt");
 }
