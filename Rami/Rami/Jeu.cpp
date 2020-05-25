@@ -378,6 +378,7 @@ void Jeu::sauverJeu() {
 	ofile << nom_ << endl;
 	ofile << nbJoueurs_ << endl;
 	ofile << manche_ << endl;
+	ofile << numJoueur_ << endl;
 	ofile.close();
 	od.sync(gameDir);
 	ofile.close();
@@ -453,7 +454,7 @@ void Jeu::chargerJeu() {
 	ifile.close();
 
 
-	// Sauvegarde du plateau
+	// Chager le plateau
 	ifile.open(od.getFullName(gameDir + "/plateau.txt"));
 	if (ifile.good()) {
 		int nb;
