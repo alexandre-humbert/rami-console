@@ -243,8 +243,8 @@ void Jeu::poseCombinaison()
 					bool notRetir = true;
 					for (int i = 0; i < combinaisons[k].getCartes().size(); i++)
 					{
-						if (joueurs_[numJoueur_].getMain()[i].getValeur() != combinaisons[k].getCartes()[j].getValeur()
-							|| joueurs_[numJoueur_].getMain()[i].getCouleur() != combinaisons[k].getCartes()[j].getCouleur())
+						if (joueurs_[numJoueur_].getMain()[i].getValeur() == combinaisons[k].getCartes()[j].getValeur()
+							&& joueurs_[numJoueur_].getMain()[i].getCouleur() == combinaisons[k].getCartes()[j].getCouleur())
 							notRetir = false;
 					}
 					if(notRetir)

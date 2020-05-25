@@ -40,8 +40,8 @@ void Joueur::afficherMain(vector<Carte> retir)
 		bool canAff = true;
 		for (int j = 0; j < (int)retir.size()&&!canAff; j++)
 		{
-			if (main[j].getValeur() != retir[i].getValeur()
-				|| main[j].getCouleur() != retir[i].getCouleur())
+			if (main[j].getValeur() == retir[i].getValeur()
+				&& main[j].getCouleur() == retir[i].getCouleur())
 			{
 				canAff = false;
 			}
