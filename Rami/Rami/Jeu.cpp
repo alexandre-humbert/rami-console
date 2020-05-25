@@ -10,7 +10,7 @@ Jeu::Jeu()
 
 void Jeu::afficherTour()
 {
-	cout << "Manche" << manche_ << endl;
+	cout << "Manche " << manche_ << endl;
 	for (int i = 0; i < 2; i++) {
 		cout << "Joueur : " << joueurs_[i].getNom() << endl;
 		cout << "Score : " << joueurs_[i].getScore() << endl;
@@ -27,7 +27,6 @@ void Jeu::afficherTour()
 
 void Jeu::effectuerTour()
 {
-	afficherTour();
 		if (numJoueur_ == 0)
 		{
 			cout << "C'est votre tour" << endl;
@@ -56,13 +55,13 @@ void Jeu::effectuerTour()
 		}
 		sauverJeu();
 		cout << "Fin de votre tour" << endl;
+		manche_++;
 		cout << " C'est au joueur adverse de jouer" << endl;
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
 	}
 
 	if (numJoueur_ == 1) {
-		afficherTour();
 		cout << "C'est au joueur adverse de jouer" << endl;
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
@@ -91,6 +90,7 @@ void Jeu::effectuerTour()
 		}
 		sauverJeu();
 		cout << "Fin de votre tour" << endl;
+		manche_++;
 	}
 }
 
@@ -122,7 +122,7 @@ void Jeu::afficherBootScreen() {
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
-	cout << "1. CrÃ©er une nouvelle partie" << endl;
+	cout << "1. Créer une nouvelle partie" << endl;
 	cout << "2. Rejoindre une partie:" << endl;
 	string choix;
 	getline(cin, choix);
@@ -163,6 +163,7 @@ void Jeu::creerPartie() {
 		od.sync(gameDir);
 		od.refresh(gameDir);
 	} while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
+	nouveauJoueur("j2", "j2");
 	chargerJeu();
 }
 
@@ -222,7 +223,7 @@ void Jeu::poseCombinaison()
 		}
 		else
 		{
-			cout << "Erreur" << endl;
+			cout << "Combinaison invalide" << endl;
 		}
 		cout << "Voulez-vous ajouter une autre combinaison? o/n" << endl;
 		getline(cin, ch);
@@ -262,14 +263,14 @@ void Jeu::changeCombinaison()
 {
 	int id = 0;
 	plateau_.afficher();
-	cout << "Choisissez la combinaison Ã  modifier : " << endl;
+	cout << "Choisissez la combinaison à modifier : " << endl;
 	cin>> id;
 	string choix = "0";
 	do
 	{	
 		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte Ã  l'avant";
-		cout << "2. Rajouter une carte Ã  l'arriÃ¨re";
+		cout << "1. Rajouter une carte à l'avant";
+		cout << "2. Rajouter une carte à l'arrière";
 		if (plateau_.getCombinaison(id).hasJoker())
 		{
 			cout << "3. Remplacer le joker";
@@ -284,7 +285,7 @@ void Jeu::changeCombinaison()
 }
 
 void Jeu::afficherRegles() {
-	cout << "Voici les rÃ¨gles et le fonctioonnement de ce jeu. " << endl;
+	cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
@@ -299,13 +300,6 @@ void Jeu::sauverJeu() {
 	string gameDir = baseDir + '/' + nom_;
 	od.refresh(gameDir);
 
-	// Sauvegarde de jeu
-	ofstream ofile(od.getFullName(gameDir + "/jeu.txt"));
-	ofile << nom_ << endl;
-	ofile << nbJoueurs_ << endl;
-	ofile << manche_ << endl;
-	ofile.close();
-
 	// Sauvegarde des joueurs
 	for (int i = 0; i < joueurs_.size(); i++) {
 		string fileName = joueurs_[i].getId();
@@ -318,7 +312,7 @@ void Jeu::sauverJeu() {
 	}
 
 	// Sauvegarde de la pioche
-	ofile.open(od.getFullName(gameDir + "/pioche.txt"));
+	ofstream ofile(od.getFullName(gameDir + "/pioche.txt"));
 	ofile << pioche_.getTaillePioche() << endl;
 	for (int i = 0; i < pioche_.getTaillePioche(); i++) {
 		ofile << pioche_.getPioche()[i].getValeur() << endl;
@@ -339,9 +333,24 @@ void Jeu::sauverJeu() {
 	// Sauvegarde du plateau
 	ofile.open(od.getFullName(gameDir + "/plateau.txt"));
 	ofile << plateau_.getnombreCombinaison() << endl;
+	for (int i = 0; i < plateau_.getnombreCombinaison(); i++)
+	{
+		for (int j=0; j < (plateau_.getCombinaison(i)).getCartes().size(); j++) {
+			ofile << plateau_.getCombinaison(i).getCarte(j).getValeur() << endl;
+			ofile << plateau_.getCombinaison(i).getCarte(j).getCouleur() << endl;
+		}
+		ofile << "NB" << endl;
+	}
 
 	ofile.close();
 	od.sync(gameDir);
+
+
+	// Sauvegarde de jeu
+	ofile.open(od.getFullName(gameDir + "/jeu.txt"));
+	ofile << nom_ << endl;
+	ofile << nbJoueurs_ << endl;
+	ofile.close();
 }
 
 
@@ -355,12 +364,10 @@ void Jeu::chargerJeu() {
 	if (ifile.good()) {
 		ifile >> nom_;
 		ifile >> nbJoueurs_;
-		ifile >> manche_;
 		ifile.close();
 	}
 	// Charger les joueurs
-	if (nbJoueurs_ > joueurs_.size()){ nouveauJoueur("j", "j"); }
-	for (int i = 0; i < nbJoueurs_; i++) {
+	for (int i = 0; i < joueurs_.size(); i++) {
 		ifstream ifile(od.getFullName(gameDir + "/j" + to_string(i + 1) + ".txt"));
 		if (ifile.good()) {
 			string buffer;

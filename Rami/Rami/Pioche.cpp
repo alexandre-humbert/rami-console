@@ -1,7 +1,10 @@
 ﻿#include "Pioche.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <algorithm> 
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
 
 Pioche::Pioche()
 {
@@ -97,6 +100,7 @@ Carte Pioche::tirerCarte()
 // Affiche la premičre carte de la défausse
 void Pioche::afficherDefausse() {
 	(defausse_.back()).afficherCarte();
+	cout << endl;
 }
 
 // Ajoute une carte ŕ la défausse

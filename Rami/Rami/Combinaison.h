@@ -13,6 +13,8 @@ public:
 	Combinaison(vector<Carte>& cartes);
 	vector<Carte> sortCarte(vector<Carte>& cartes);
 	void afficherCombinaison();
+	Carte getCarte(int id) { return cartes_[id]; }
+	vector<Carte> getCartes() { return cartes_; }
 	bool hasJoker();
 	bool isValid();
 	bool isBrelan();

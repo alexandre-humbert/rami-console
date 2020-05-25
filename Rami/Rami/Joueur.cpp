@@ -48,7 +48,7 @@ void Joueur::piocher()
 	if (pioche_->getTaillePioche() != 0)
 	{
 		Carte c = pioche_->tirerCarte();
-		cout << "Carte piochee : ";
+		cout << "Carte piochee : " << endl;;
 		c.afficherCarte();
 		main.push_back(c);
 	}
