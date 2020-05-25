@@ -8,8 +8,10 @@ class Plateau
 public:
 	Plateau();
 	void afficher();
-	bool ajouterCombinaison(Combinaison& Combinaison);
-	bool modifierCombinaison(Combinaison& Combinaison);
+	void afficherCombinaison(int id);
+	Combinaison getCombinaison(int id) { return combinaisons_[id]; };
+	void ajouterCombinaison(Combinaison& Combinaison);
+	void modifierCombinaison(Combinaison& Combinaison,int id);
 	~Plateau();
 };
 

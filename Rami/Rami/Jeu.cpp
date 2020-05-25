@@ -141,7 +141,7 @@ void Jeu::afficherBootScreen() {
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
-	cout << "1. CrÃ©er une nouvelle partie" << endl;
+	cout << "1. Créer une nouvelle partie" << endl;
 	cout << "2. Rejoindre une partie:" << endl;
 	string choix;
 	getline(cin, choix);
@@ -280,14 +280,14 @@ void Jeu::changeCombinaison()
 {
 	int id = 0;
 	plateau_.afficher();
-	cout << "Choisissez la combinaison Ã  modifier : " << endl;
+	cout << "Choisissez la combinaison à modifier : " << endl;
 	cin>> id;
 	string choix = "0";
 	do
 	{	
 		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte Ã  l'avant";
-		cout << "2. Rajouter une carte Ã  l'arriÃ¨re";
+		cout << "1. Rajouter une carte à l'avant";
+		cout << "2. Rajouter une carte à l'arrière";
 		if (plateau_.getCombinaison(id).hasJoker())
 		{
 			cout << "3. Remplacer le joker";
@@ -302,7 +302,7 @@ void Jeu::changeCombinaison()
 }
 
 void Jeu::afficherRegles() {
-	cout << "Voici les rÃ¨gles et le fonctioonnement de ce jeu. " << endl;
+	cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;

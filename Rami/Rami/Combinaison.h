@@ -12,6 +12,8 @@ class Combinaison
 public:
 	Combinaison(vector<Carte>& cartes);
 	vector<Carte> sortCarte(vector<Carte>& cartes);
+	void afficherCombinaison();
+	bool hasJoker();
 	bool isValid();
 	bool isBrelan();
 	bool isSuite();

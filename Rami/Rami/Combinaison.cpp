@@ -30,6 +30,29 @@ Combinaison::Combinaison(vector<Carte>& cartes)
 	return cartes;
 }*/
 
+void Combinaison::afficherCombinaison()
+{
+	for (int j = 0; j < (int)cartes_.size(); j++)
+	{
+		std::cout << " ";
+		cartes_[j].afficherCarte();
+		std::cout << " ";
+	}
+}
+
+bool Combinaison::hasJoker()
+{
+	for (int i = 0; i < (int)cartes_.size() - 1; i++)
+	{
+		if (cartes_[i].getValeur()=="x")
+		{
+				return true;
+		}
+	}
+	return false;
+}
+
+
 bool Combinaison::isValid()
 {
 	if ((cartes_.size() > 2)&&(isBrelan() || isSuite() || isCarre()))

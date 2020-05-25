@@ -1,5 +1,5 @@
 #include "Plateau.h"
-
+#include <iostream>
 
 
 Plateau::Plateau()
@@ -8,15 +8,35 @@ Plateau::Plateau()
 
 void Plateau::afficher()
 {
+	for (int i = 0; i < (int)combinaisons_.size(); i++)
+	{
+		std::cout << i + 1 << ".";
+		combinaisons_[i].afficherCombinaison();
+		std::cout << " \n";
+	}
 }
 
-bool Plateau::ajouterCombinaison(Combinaison& Combinaison)
+void Plateau::afficherCombinaison(int id)
 {
-
+	combinaisons_[id].afficherCombinaison();
 }
 
-bool Plateau::modifierCombinaison(Combinaison & Combinaison)
+void Plateau::ajouterCombinaison(Combinaison& Combinaison)
 {
+	combinaisons_.push_back(Combinaison);
+}
+
+void Plateau::modifierCombinaison(Combinaison & Combinaison,int id)
+{
+	if (id > 0 && id < combinaisons_.size())
+	{
+		combinaisons_[id] = Combinaison;
+	}
+	else
+	{
+		cout << "Erreur d'indice";
+	}
+
 }
 
 

@@ -2,12 +2,6 @@
 #include <vector>
 #include "Carte.h"
 
-/**
-Cette classe contient à la fois la pioche et la défausse.
-Les cartes de la pioche sont représentées par un vecteur de cartes nommé carte_ 
-tandis que celle de la défausse sont dans un vecteur de cartes ommé defausse_.
-Cette classe contient aussi le nombre de carte de la pioche et de la defausse.
-*/
 class Pioche
 {
 	vector<Carte> cartes_;
