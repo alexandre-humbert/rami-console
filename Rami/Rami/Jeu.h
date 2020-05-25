@@ -6,7 +6,7 @@
 #include "odrive.h"
 /* La classe jeu est la classe principale de ce programme.
 Elle contient le nom de la partie, le nombre de joueurs,la place du joueur, les joueurs, le plateau,
-la pioche et le numéro de la manche.
+la pioche et le numÃ©ro de la manche.
 */
 class Jeu
 {
@@ -28,10 +28,11 @@ public:
 	void nouveauJoueur(string nom, string id);
 	void afficherTour();
 	void effectuerTour();
+	void poseCombinaison();
+	void changeCombinaison();
 	void afficherRegles();
 	void sauverJeu();
 	void chargerJeu();
 	void abandonner();
-	void exec();
 	~Jeu();
 };
