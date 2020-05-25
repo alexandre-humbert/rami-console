@@ -10,7 +10,9 @@ public:
 	void afficher();
 	void afficherCombinaison(int id);
 	int getnombreCombinaison() { return nombreCombinaison_; }
+	void setNombreCombinaison(int value) { nombreCombinaison_ = value; }
 	Combinaison getCombinaison(int id) { return combinaisons_[id]; };
+	void setCombinaisons(vector<Combinaison> value) { combinaisons_ = value; }
 	void ajouterCombinaison(Combinaison& Combinaison);
 	void modifierCombinaison(Combinaison& Combinaison,int id);
 	~Plateau();

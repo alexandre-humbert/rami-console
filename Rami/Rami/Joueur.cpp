@@ -52,6 +52,7 @@ void Joueur::piocher()
 		c.afficherCarte();
 		cout << endl;
 		main.push_back(c);
+		nombreCarte_++;
 	}
 	else {
 		if (pioche_->getTailleDefausse() != 0) {
@@ -68,7 +69,7 @@ void Joueur::defausser() {
 	afficherMain();
 	int choix;
 	do {
-		cout << "Choisissez la carte à défausser : " << endl;
+		cout << "Choisissez la carte a defausser : " << endl;
 		cin >> choix;
 	} while (choix < 0 || choix>7);
 	choix--;

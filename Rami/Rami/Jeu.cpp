@@ -27,9 +27,12 @@ void Jeu::afficherTour()
 
 void Jeu::effectuerTour()
 {
+	system("CLS");
 		if (numJoueur_ == 0)
 		{
+			cout << "_________________" << endl;
 			cout << "C'est votre tour" << endl;
+			cout << "_________________" << endl;
 			cout << "Piochez une carte" << endl;
 			system("PAUSE");
 			joueurs_[numJoueur_].piocher();
@@ -54,7 +57,9 @@ void Jeu::effectuerTour()
 			abandonner();
 		}
 		sauverJeu();
+		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
+		cout << "_________________" << endl;
 		manche_++;
 		cout << " C'est au joueur adverse de jouer" << endl;
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
@@ -66,7 +71,9 @@ void Jeu::effectuerTour()
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
 		afficherTour();
+		cout << "_________________" << endl;
 		cout << "C'est votre tour" << endl;
+		cout << "_________________" << endl;
 		cout << "Piochez une carte" << endl;
 		system("PAUSE");
 		joueurs_[numJoueur_].piocher();
@@ -89,7 +96,9 @@ void Jeu::effectuerTour()
 			abandonner();
 		}
 		sauverJeu();
+		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
+		cout << "_________________" << endl;
 		manche_++;
 	}
 }
@@ -155,6 +164,7 @@ void Jeu::creerPartie() {
 	nouveauJoueur(nomJoueur, "j1");
 	numJoueur_ = 0;
 	sauverJeu();
+	cout << "En attente du joueur adverse" << endl;
 	od.waitForChange(gameDir + "/jeu.txt");
 	do
 	{
@@ -285,7 +295,7 @@ void Jeu::changeCombinaison()
 }
 
 void Jeu::afficherRegles() {
-	cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
+	cout << "Voici les regles et le fonctionnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
@@ -332,6 +342,7 @@ void Jeu::sauverJeu() {
 
 	// Sauvegarde du plateau
 	ofile.open(od.getFullName(gameDir + "/plateau.txt"));
+	ofile << plateau_.getnombreCombinaison();
 	ofile << plateau_.getnombreCombinaison() << endl;
 	for (int i = 0; i < plateau_.getnombreCombinaison(); i++)
 	{
@@ -340,10 +351,10 @@ void Jeu::sauverJeu() {
 			ofile << plateau_.getCombinaison(i).getCarte(j).getCouleur() << endl;
 		}
 		ofile << "NB" << endl;
+		ofile << "NB" << endl;
 	}
 
 	ofile.close();
-	od.sync(gameDir);
 
 
 	// Sauvegarde de jeu
@@ -351,6 +362,7 @@ void Jeu::sauverJeu() {
 	ofile << nom_ << endl;
 	ofile << nbJoueurs_ << endl;
 	ofile.close();
+	od.sync(gameDir);
 }
 
 
@@ -419,6 +431,27 @@ void Jeu::chargerJeu() {
 		ifile.close();
 	}
 
+	// Sauvegarde du plateau
+	ifile.open(od.getFullName(gameDir + "/plateau.txt"));
+	if (ifile.good()) {
+		int nb;
+		ifile >> nb;
+		plateau_.setNombreCombinaison(nb);
+		string valeur = " ";
+		string couleur = " ";
+		int i=0;
+		vector<Combinaison> combinaisons;
+		while ( i < nb){
+			Combinaison c;
+			while (valeur != "NC") {
+				ifile >> valeur;
+				ifile >> couleur;
+				c.ajouterCarte(Carte(valeur, couleur));
+			}
+			combinaisons.push_back(c);
+		}
+		plateau_.setCombinaisons(combinaisons);
+	}
 
 }
 
