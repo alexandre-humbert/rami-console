@@ -28,7 +28,8 @@ void Jeu::afficherTour()
 void Jeu::effectuerTour()
 {
 	afficherTour();
-	if (numJoueur_ == 0) {
+	if (numJoueur_ == 0) 
+	{
 		cout << "C'est votre tour" << endl;
 		cout << "Piochez une carte" << endl;
 		system("PAUSE");
@@ -42,13 +43,15 @@ void Jeu::effectuerTour()
 			cout << "3. Abandonner" << endl;
 			getline(cin, choix);
 		} while (choix != "1" && choix != "2" && choix != "3");
-		if (numJoueur_ == 0) {
+		if (numJoueur_ == 0)
+		{
 			cout << "C'est votre tour" << endl;
 			cout << "Piochez une carte" << endl;
 			system("PAUSE");
 			joueurs_[numJoueur_].piocher();
 			string choix = "0";
-			do {
+			do
+			{
 				afficherTour();
 				cout << "Que voulez-vous faire ?" << endl;
 				cout << "1. Poser des combinaison" << endl;
@@ -56,51 +59,11 @@ void Jeu::effectuerTour()
 				cout << "3. Abandonner" << endl;
 				getline(cin, choix);
 			} while (choix != "1" && choix != "2" && choix != "3");
-			if (choix == "1") {
-				vector<Combinaison> combinaisons;
-				string ch = "o";
-				while (ch == "o")
-				{
-					Combinaison combinaison = joueurs_[numJoueur_].nouvelleCombinaison();
-					if (combinaison.isValid)
-					{
-						combinaisons.push_back(combinaison);
-					}
-					else
-					{
-						cout << "Erreur" << endl;
-					}
-					cout << "Voulez-vous ajouter une autre combinaison? o/n" << endl;
-				}
-				if (combinaisons.size() > 0)
-				{
-					if (joueurs_[numJoueur_].getPose())
-					{
-						for (int i = 0; i < combinaisons.size(); i++)
-						{
-							plateau_.ajouterCombinaison(combinaisons[i]);
-						}
-					}
-					else
-					{
-						int score = 0;
-						for (int i = 0; i < combinaisons.size(); i++)
-						{
-							score += combinaisons[i].getScore();
-						}
-						if (score > 50)
-						{
-							for (int i = 0; i < combinaisons.size(); i++)
-							{
-								plateau_.ajouterCombinaison(combinaisons[i]);
-							}
-						}
-						else
-						{
-							cout << "Pas assez de points";
-						}
-					}
-				}
+			if (choix == "1")
+			{
+				poseCombinaison();
+			}
+		}
 		else if (choix == "2") {
 			joueurs_[numJoueur_].defausser();
 		}
@@ -120,7 +83,8 @@ void Jeu::effectuerTour()
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
 		afficherTour();
-		if (numJoueur_ == 0) {
+		if (numJoueur_ == 0) 
+		{
 			cout << "C'est votre tour" << endl;
 			cout << "Piochez une carte" << endl;
 			system("PAUSE");
@@ -135,52 +99,7 @@ void Jeu::effectuerTour()
 				getline(cin, choix);
 			} while (choix != "1" && choix != "2" && choix != "3");
 			if (choix == "1") {
-				vector<Combinaison> combinaisons;
-				string ch = "o";
-				while (ch == "o")
-				{
-					Combinaison combinaison =joueurs_[numJoueur_].nouvelleCombinaison();
-					if (combinaison.isValid)
-					{
-						combinaisons.push_back(combinaison);
-					}
-					else
-					{
-						cout << "Erreur" << endl;
-					}
-					cout << "Voulez-vous ajouter une autre combinaison? o/n"<<endl;
-				}
-				if (combinaisons.size() > 0)
-				{
-					if (joueurs_[numJoueur_].getPose())
-					{
-						for (int i = 0; i < combinaisons.size(); i++)
-						{
-							plateau_.ajouterCombinaison(combinaisons[i]);
-						}
-					}
-					else
-					{
-						int score=0;
-						for (int i = 0; i < combinaisons.size(); i++)
-						{
-							score+=combinaisons[i].getScore();
-						}
-						if (score > 50)
-						{
-							for (int i = 0; i < combinaisons.size(); i++)
-							{
-								plateau_.ajouterCombinaison(combinaisons[i]);
-							}
-						}
-						else
-						{
-							cout << "Pas assez de points";
-						}
-					}
-				}
-
-					
+				poseCombinaison();
 			}
 			else if (choix == "2") {
 				joueurs_[numJoueur_].defausser();
@@ -222,7 +141,7 @@ void Jeu::afficherBootScreen() {
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
-	cout << "1. Cr�er une nouvelle partie" << endl;
+	cout << "1. Créer une nouvelle partie" << endl;
 	cout << "2. Rejoindre une partie:" << endl;
 	string choix;
 	getline(cin, choix);
@@ -309,8 +228,81 @@ void Jeu::nouveauJoueur(string nom, string id) {
 	nbJoueurs_++;
 }
 
+void Jeu::poseCombinaison()
+{
+	vector<Combinaison> combinaisons;
+	string ch = "o";
+	while (ch == "o")
+	{
+		Combinaison combinaison = joueurs_[numJoueur_].nouvelleCombinaison();
+		if (combinaison.isValid())
+		{
+			combinaisons.push_back(combinaison);
+		}
+		else
+		{
+			cout << "Erreur" << endl;
+		}
+		cout << "Voulez-vous ajouter une autre combinaison? o/n" << endl;
+	}
+	if (combinaisons.size() > 0)
+	{
+		if (joueurs_[numJoueur_].getPose())
+		{
+			for (int i = 0; i < combinaisons.size(); i++)
+			{
+				plateau_.ajouterCombinaison(combinaisons[i]);
+			}
+		}
+		else
+		{
+			int score = 0;
+			for (int i = 0; i < combinaisons.size(); i++)
+			{
+				score += combinaisons[i].getScore();
+			}
+			if (score > 50)
+			{
+				for (int i = 0; i < combinaisons.size(); i++)
+				{
+					plateau_.ajouterCombinaison(combinaisons[i]);
+				}
+			}
+			else
+			{
+				cout << "Pas assez de points";
+			}
+		}
+	}
+}
+
+void Jeu::changeCombinaison()
+{
+	int id = 0;
+	plateau_.afficher();
+	cout << "Choisissez la combinaison à modifier : " << endl;
+	cin>> id;
+	string choix = "0";
+	do
+	{	
+		cout << "Que voulez vous faire ?";
+		cout << "1. Rajouter une carte à l'avant";
+		cout << "2. Rajouter une carte à l'arrière";
+		if (plateau_.getCombinaison(id).hasJoker())
+		{
+			cout << "3. Remplacer le joker";
+			cout << "4. Cancel";
+		}
+		else {
+			cout << "3. Cancel";
+		}
+		getline(cin, choix);
+	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4"&&plateau_.getCombinaison(id).hasJoker())));
+
+}
+
 void Jeu::afficherRegles() {
-	cout << "Voici les r�gles et le fonctioonnement de ce jeu. " << endl;
+	cout << "Voici les règles et le fonctioonnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
@@ -441,14 +433,12 @@ void Jeu::abandonner() {
 
 }
 
-// C'est le main
 void Jeu::exec() {
 	afficherBootScreen();
 	afficherRegles();
 	demarrerPartie();
 	afficherTour();
 }
-
 Jeu::~Jeu()
 {
 	od.delFile("Rami/" + nom_ + "/jeu.txt");
