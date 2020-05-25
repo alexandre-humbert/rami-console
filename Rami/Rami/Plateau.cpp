@@ -4,6 +4,7 @@
 
 Plateau::Plateau()
 {
+
 }
 
 void Plateau::afficher()

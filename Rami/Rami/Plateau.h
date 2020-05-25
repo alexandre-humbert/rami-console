@@ -4,7 +4,7 @@
 class Plateau
 {
 	vector<Combinaison> combinaisons_;
-	int nombreCombinaison_;
+	int nombreCombinaison_ = 0;
 public:
 	Plateau();
 	void afficher();

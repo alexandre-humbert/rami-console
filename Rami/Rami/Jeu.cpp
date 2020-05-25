@@ -28,21 +28,6 @@ void Jeu::afficherTour()
 void Jeu::effectuerTour()
 {
 	afficherTour();
-	if (numJoueur_ == 0) 
-	{
-		cout << "C'est votre tour" << endl;
-		cout << "Piochez une carte" << endl;
-		system("PAUSE");
-		joueurs_[numJoueur_].piocher();
-		string choix = "0";
-		do {
-			afficherTour();
-			cout << "Que voulez-vous faire ?" << endl;
-			cout << "1. Poser des combinaison" << endl;
-			cout << "2. Defausser une carte" << endl;
-			cout << "3. Abandonner" << endl;
-			getline(cin, choix);
-		} while (choix != "1" && choix != "2" && choix != "3");
 		if (numJoueur_ == 0)
 		{
 			cout << "C'est votre tour" << endl;
@@ -63,7 +48,6 @@ void Jeu::effectuerTour()
 			{
 				poseCombinaison();
 			}
-		}
 		else if (choix == "2") {
 			joueurs_[numJoueur_].defausser();
 		}
@@ -83,30 +67,27 @@ void Jeu::effectuerTour()
 		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
 		chargerJeu();
 		afficherTour();
-		if (numJoueur_ == 0) 
-		{
-			cout << "C'est votre tour" << endl;
-			cout << "Piochez une carte" << endl;
-			system("PAUSE");
-			joueurs_[numJoueur_].piocher();
-			string choix = "0";
-			do {
-				afficherTour();
-				cout << "Que voulez-vous faire ?" << endl;
-				cout << "1. Poser des combinaison" << endl;
-				cout << "2. Defausser une carte" << endl;
-				cout << "3. Abandonner" << endl;
-				getline(cin, choix);
-			} while (choix != "1" && choix != "2" && choix != "3");
-			if (choix == "1") {
-				poseCombinaison();
-			}
-			else if (choix == "2") {
-				joueurs_[numJoueur_].defausser();
-			}
-			else {
-				abandonner();
-			}
+		cout << "C'est votre tour" << endl;
+		cout << "Piochez une carte" << endl;
+		system("PAUSE");
+		joueurs_[numJoueur_].piocher();
+		string choix = "0";
+		do {
+			afficherTour();
+			cout << "Que voulez-vous faire ?" << endl;
+			cout << "1. Poser des combinaison" << endl;
+			cout << "2. Defausser une carte" << endl;
+			cout << "3. Abandonner" << endl;
+			getline(cin, choix);
+		} while (choix != "1" && choix != "2" && choix != "3");
+		if (choix == "1") {
+			poseCombinaison();
+		}
+		else if (choix == "2") {
+			joueurs_[numJoueur_].defausser();
+		}
+		else {
+			abandonner();
 		}
 		sauverJeu();
 		cout << "Fin de votre tour" << endl;
@@ -261,7 +242,7 @@ void Jeu::poseCombinaison()
 			{
 				score += combinaisons[i].getScore();
 			}
-			if (score > 50)
+			if (score > 20)
 			{
 				for (int i = 0; i < combinaisons.size(); i++)
 				{
@@ -270,7 +251,7 @@ void Jeu::poseCombinaison()
 			}
 			else
 			{
-				cout << "Pas assez de points";
+				cout << "La combinaison doit faire 20 points" << endl;
 			}
 		}
 	}
@@ -437,7 +418,13 @@ void Jeu::exec() {
 	afficherBootScreen();
 	afficherRegles();
 	demarrerPartie();
-	afficherTour();
+	while (1) {
+		while (joueurs_[0].getNombreCarte() != 0 && joueurs_[1].getNombreCarte() != 0) {
+			effectuerTour();
+		}
+		// Nouvelle pioche
+		// Redistribuer carte
+	}
 }
 Jeu::~Jeu()
 {
