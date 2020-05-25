@@ -441,6 +441,14 @@ void Jeu::abandonner() {
 
 }
 
+// C'est le main
+void Jeu::exec() {
+	afficherBootScreen();
+	afficherRegles();
+	demarrerPartie();
+	afficherTour();
+}
+
 Jeu::~Jeu()
 {
 	od.delFile("Rami/" + nom_ + "/jeu.txt");

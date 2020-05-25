@@ -7,6 +7,7 @@ Carte Joueur::choisirCarte(int i)
 	return main[i];
 }
 
+// Retourne une combinason de cartes séléectionnées par le joueur.
 Combinaison Joueur::nouvelleCombinaison()
 {
 	vector<int> ids;
@@ -32,6 +33,7 @@ Combinaison Joueur::nouvelleCombinaison()
 
 }
 
+// Affiche les cartes que le joueur à en main.
 void Joueur::afficherMain()
 {
 	for (int i = 0; i < (int)main.size(); i++)
@@ -42,7 +44,7 @@ void Joueur::afficherMain()
 	}
 }
 
-
+// Permet au joueur de piocher une carte de la pioche qui est renouvelée si besoin.
 void Joueur::piocher()
 {
 	if (pioche_->getTaillePioche() != 0)
@@ -62,6 +64,7 @@ void Joueur::piocher()
 	}
 }
 
+// Permet au joueur de défausser une carte choisie.
 void Joueur::defausser() {
 	afficherMain();
 	int choix;
@@ -75,7 +78,7 @@ void Joueur::defausser() {
 	nombreCarte_--;
 }
 
-
+// Constructeur de joueur
 Joueur::Joueur(string nom, string id, Pioche *pioche)
 {
 	pioche_ = pioche;

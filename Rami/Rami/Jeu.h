@@ -4,7 +4,10 @@
 #include "Plateau.h"
 #include <stdlib.h>
 #include "odrive.h"
-
+/* La classe jeu est la classe principale de ce programme.
+Elle contient le nom de la partie, le nombre de joueurs,la place du joueur, les joueurs, le plateau,
+la pioche et le numéro de la manche.
+*/
 class Jeu
 {
 	string nom_ = "Partie";
@@ -29,5 +32,6 @@ public:
 	void sauverJeu();
 	void chargerJeu();
 	void abandonner();
+	void exec();
 	~Jeu();
 };

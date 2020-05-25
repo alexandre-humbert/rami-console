@@ -71,6 +71,7 @@ int Pioche::getTailleDefausse()
 	return tailleDefausse_;
 }
 
+// Remplace la pioche par la defausse quand elle est vide et melange la nouvelle pioche
 void Pioche::renouvelerPioche() {
 	cartes_ = defausse_;
 	taillePioche_ = tailleDefausse_;
@@ -79,10 +80,11 @@ void Pioche::renouvelerPioche() {
 	melanger();
 }
 
+// Permet de malanger la pioche
 void Pioche::melanger(){
 	random_shuffle(cartes_.begin(), cartes_.end());
 }
-
+// Retourne une carte de la pioche en supprimant cette carte de la pioche
 Carte Pioche::tirerCarte()
 {	Carte c;
 	c = cartes_.back();
@@ -91,10 +93,12 @@ Carte Pioche::tirerCarte()
 	return c;
 }
 
+// Affiche la première carte de la défausse
 void Pioche::afficherDefausse() {
 	(defausse_.back()).afficherCarte();
 }
 
+// Ajoute une carte à la défausse
 void Pioche::defausserCarte(Carte c)
 {
 	defausse_.push_back(c);

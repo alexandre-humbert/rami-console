@@ -3,7 +3,11 @@
 #include "Pioche.h"
 #include "Combinaison.h"
 #include <vector>
-
+/**
+La classe joueur représente un joueur.
+Elle contient son nom, un identifiant générique, l'information s'il à déjà posé une combinaison ou non,
+son score, son nombre de cartes, ses cartes et un pointeur vers la pioche.
+*/
 class Joueur
 {
 	string nom_;
