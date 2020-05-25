@@ -56,6 +56,18 @@ void Joueur::afficherMain(vector<Carte> retir)
 	}
 }
 
+void Joueur::afficherMain()
+{
+
+	for (int i = 0; i < (int)main.size(); i++)
+	{
+			std::cout << i + 1 << ".";
+			main[i].afficherCarte();
+			std::cout << " \n";
+
+	}
+}
+
 // Permet au joueur de piocher une carte de la pioche qui est renouvelée si besoin.
 void Joueur::piocher()
 {

@@ -32,6 +32,7 @@ public:
 	Combinaison nouvelleCombinaison();
 	vector<Carte> getMain() { return main; }
 	void afficherMain(vector<Carte> retir);
+	void afficherMain();
 	void piocher();
 	void defausser();
 	Joueur(string nom, string id, Pioche* pioche);

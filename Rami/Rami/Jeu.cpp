@@ -240,12 +240,15 @@ void Jeu::poseCombinaison()
 				plateau_.ajouterCombinaison(combinaisons[k]);
 				for (int j = 0; j < joueurs_[numJoueur_].getMain().size(); j++)
 				{
+					bool notRetir = true;
 					for (int i = 0; i < combinaisons[k].getCartes().size(); i++)
 					{
 						if (joueurs_[numJoueur_].getMain()[i].getValeur() != combinaisons[k].getCartes()[j].getValeur()
 							|| joueurs_[numJoueur_].getMain()[i].getCouleur() != combinaisons[k].getCartes()[j].getCouleur())
-							main.push_back(joueurs_[numJoueur_].getMain()[i]);
+							notRetir = false;
 					}
+					if(notRetir)
+					main.push_back(joueurs_[numJoueur_].getMain()[j]);
 				}
 			}
 		}
