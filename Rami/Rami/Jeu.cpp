@@ -155,16 +155,15 @@ void Jeu::creerPartie() {
 	nouveauJoueur(nomJoueur, "j1");
 	numJoueur_ = 0;
 	sauverJeu();
-	while (nbJoueurs_ != 2) {
-		od.waitForChange(gameDir + "/jeu.txt");
-		chargerJeu();
-	}
+	od.waitForChange(gameDir + "/jeu.txt");
 	do
 	{
+		od.refresh(gameDir);
 		od.sync(gameDir + "/j2.txt");
 		od.sync(gameDir);
 		od.refresh(gameDir);
 	} while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
+	chargerJeu();
 }
 
 
