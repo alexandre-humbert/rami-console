@@ -37,15 +37,14 @@ void Jeu::effectuerTour()
 			system("PAUSE");
 			joueurs_[numJoueur_].piocher();
 			string choix = "0";
-			do
-			{
+			while (choix != "1" && choix != "2" && choix != "3"){
 				afficherTour();
 				cout << "Que voulez-vous faire ?" << endl;
 				cout << "1. Poser des combinaison" << endl;
 				cout << "2. Defausser une carte" << endl;
 				cout << "3. Abandonner" << endl;
 				getline(cin, choix);
-			} while (choix != "1" && choix != "2" && choix != "3");
+			} 
 			if (choix == "1")
 			{
 				poseCombinaison();
@@ -56,14 +55,16 @@ void Jeu::effectuerTour()
 		else {
 			abandonner();
 		}
-		manche_++;
-		sauverJeu();
-		cout << "_________________" << endl;
-		cout << "Fin de votre tour" << endl;
-		cout << "_________________" << endl;
-		cout << " C'est au joueur adverse de jouer" << endl;
-		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
-		chargerJeu();
+			if (choix != "3") {
+				manche_++;
+				sauverJeu();
+				cout << "_________________" << endl;
+				cout << "Fin de votre tour" << endl;
+				cout << "_________________" << endl;
+				cout << " C'est au joueur adverse de jouer" << endl;
+				od.waitForChange("Rami/" + nom_ + "/jeu.txt");
+				chargerJeu();
+			}
 	}
 
 	if (numJoueur_ == 1) {
@@ -78,14 +79,14 @@ void Jeu::effectuerTour()
 		system("PAUSE");
 		joueurs_[numJoueur_].piocher();
 		string choix = "0";
-		do {
+		while (choix != "1" && choix != "2" && choix != "3"){
 			afficherTour();
 			cout << "Que voulez-vous faire ?" << endl;
 			cout << "1. Poser des combinaison" << endl;
 			cout << "2. Defausser une carte" << endl;
 			cout << "3. Abandonner" << endl;
 			getline(cin, choix);
-		} while (choix != "1" && choix != "2" && choix != "3");
+		} 
 		if (choix == "1") {
 			poseCombinaison();
 		}
@@ -481,6 +482,9 @@ void Jeu::chargerJeu() {
 void Jeu::abandonner() {
 	nbJoueurs_--;
 	sauverJeu();
+	cout << "__________________" << endl;
+	cout << "FIN DE LA PARTIE" << endl;
+	cout << " Abandon d'un des joueurs" << endl;
 }
 
 void Jeu::exec() {
@@ -488,7 +492,7 @@ void Jeu::exec() {
 	afficherRegles();
 	demarrerPartie();
 	while (nbJoueurs_ == 2) {
-		while (joueurs_[0].getNombreCarte() != 0 && joueurs_[1].getNombreCarte() != 0) {
+		while (joueurs_[0].getNombreCarte() != 0 && joueurs_[1].getNombreCarte() != 0 && nbJoueurs_ == 2) {
 			effectuerTour();
 		}
 		// Nouvelle pioche
