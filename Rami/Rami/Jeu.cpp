@@ -487,7 +487,7 @@ void Jeu::exec() {
 	afficherBootScreen();
 	afficherRegles();
 	demarrerPartie();
-	while (1) {
+	while (nbJoueurs_ == 2) {
 		while (joueurs_[0].getNombreCarte() != 0 && joueurs_[1].getNombreCarte() != 0) {
 			effectuerTour();
 		}
