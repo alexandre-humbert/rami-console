@@ -18,7 +18,7 @@ void Jeu::afficherTour()
 		cout << endl;
 	}
 	if (pioche_.getTailleDefausse() != 0) {
-		cout << "Defausse" << endl;
+		cout << "Defausse : ";
 		pioche_.afficherDefausse();
 	}
 	cout << "Vos cartes : " << endl;
@@ -122,8 +122,7 @@ void Jeu::afficherBootScreen() {
 	cout << "| |\\ \\ | (_| || | | | | || |    | \\__/\\    |_|      |_|  " << endl;
 	cout << "\\_| \\_| \\__,_||_| |_| |_||_|     \\____/                " << endl;
 	cout << endl;
-	cout << " Appuyez sur une touche pour commencer la partie" << endl;
-	getchar();
+	system("PAUSE");
 	system("CLS");
 
 
@@ -314,8 +313,7 @@ void Jeu::afficherRegles() {
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
-	cout << " Appuyez sur une touche pour commencer la partie" << endl;
-	getchar();
+	system("PAUSE");
 	system("CLS");
 }
 
@@ -454,7 +452,7 @@ void Jeu::chargerJeu() {
 	ifile.close();
 
 
-	// Chager le plateau
+	// Charger le plateau
 	ifile.open(od.getFullName(gameDir + "/plateau.txt"));
 	if (ifile.good()) {
 		int nb;

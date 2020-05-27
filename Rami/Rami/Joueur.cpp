@@ -33,7 +33,7 @@ Combinaison Joueur::nouvelleCombinaison()
 }
 void Joueur::afficherMain(vector<Carte> retir)
 {
-	cout << "Vos cartes : " << endl;
+
 	for (int i = 0; i < (int)main.size(); i++)
 	{
 		bool canAff = true;
@@ -56,7 +56,7 @@ void Joueur::afficherMain(vector<Carte> retir)
 }
 // Affiche les cartes que le joueur à en main.
 void Joueur::afficherMain()
-{	cout << "Vos cartes : " << endl;
+{
 	for (int i = 0; i < (int)main.size(); i++)
 	{
 		std::cout << i + 1 << ".";
@@ -89,13 +89,12 @@ void Joueur::piocher()
 
 // Permet au joueur de défausser une carte choisie.
 void Joueur::defausser() {
-	system("CLS");
 	afficherMain();
 	int choix;
 	do {
-		cout << "Choisissez la carte a defausser : " << endl;
+		cout << "Choisissez la carte a defausser : ";
 		cin >> choix;
-	} while (choix < 0 || choix>7);
+	} while (choix < 1 || choix > 8);
 	choix--;
 	pioche_->defausserCarte(main[choix]);
 	main.erase(main.begin() + choix);
