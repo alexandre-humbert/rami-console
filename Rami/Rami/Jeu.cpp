@@ -33,8 +33,10 @@ void Jeu::effectuerTour()
 			cout << "_________________" << endl;
 			cout << "C'est votre tour" << endl;
 			cout << "_________________" << endl;
+			afficherTour();
 			cout << "Piochez une carte" << endl;
 			system("PAUSE");
+			system("CLS");
 			joueurs_[numJoueur_].piocher();
 			string choix = "0";
 			while (choix != "1" && choix != "2" && choix != "3"){
@@ -55,28 +57,30 @@ void Jeu::effectuerTour()
 		else {
 			abandonner();
 		}
-			if (choix != "3") {
-				manche_++;
-				sauverJeu();
-				cout << "_________________" << endl;
-				cout << "Fin de votre tour" << endl;
-				cout << "_________________" << endl;
-				cout << " C'est au joueur adverse de jouer" << endl;
-				od.waitForChange("Rami/" + nom_ + "/jeu.txt");
-				chargerJeu();
-			}
+		if (choix != "3") {
+			manche_++;
+			sauverJeu();
+			cout << "_________________" << endl;
+			cout << "Fin de votre tour" << endl;
+			cout << "_________________" << endl;
+			cout << " C'est au joueur adverse de jouer" << endl;
+			od.waitForChange("Rami/" + nom_ + ".txt");
+			chargerJeu();
+		}
 	}
 
 	if (numJoueur_ == 1) {
 		cout << "C'est au joueur adverse de jouer" << endl;
-		od.waitForChange("Rami/" + nom_ + "/jeu.txt");
+		od.refresh("Rami/");
+		od.waitForChange("Rami/" + nom_ + ".txt");
 		chargerJeu();
-		afficherTour();
 		cout << "_________________" << endl;
 		cout << "C'est votre tour" << endl;
 		cout << "_________________" << endl;
+		afficherTour();
 		cout << "Piochez une carte" << endl;
 		system("PAUSE");
+		system("CLS");
 		joueurs_[numJoueur_].piocher();
 		string choix = "0";
 		while (choix != "1" && choix != "2" && choix != "3"){
@@ -147,16 +151,9 @@ void Jeu::creerPartie() {
 	string nomPartie;
 	cout << "Entrez le nom de la partie :" << endl;
 	getline(cin, nomPartie);
-	string gameDir = baseDir + '/' + nomPartie;
+	nom_ = nomPartie;
 	od.refresh(baseDir);
 	od.sync(baseDir);
-	if (!od.isDir(gameDir))
-	{
-		od.mkDir(gameDir);
-		od.refresh(baseDir);
-	}
-
-	nom_ = nomPartie;
 	cout << "Entrez votre nom :" << endl;
 	string nomJoueur;
 	getline(cin, nomJoueur);
@@ -165,15 +162,9 @@ void Jeu::creerPartie() {
 	numJoueur_ = 0;
 	sauverJeu();
 	cout << "En attente du joueur adverse" << endl;
-	od.waitForChange(gameDir + "/jeu.txt");
-	do
-	{
-		od.refresh(gameDir);
-		od.sync(gameDir + "/j2.txt");
-		od.sync(gameDir);
-		od.refresh(gameDir);
-	} while (!ifstream(od.getFullName(gameDir + "/j2.txt")).good());
+	od.waitForChange("Rami/" + nom_ + ".txt");
 	nouveauJoueur("j2", "j2");
+	od.refresh(baseDir);
 	chargerJeu();
 }
 
@@ -184,18 +175,11 @@ void Jeu::rejoindrePartie() {
 	string nomPartie;
 	cout << "Entrez le nom de la partie :" << endl;
 	getline(cin, nomPartie);
-	string gameDir = baseDir + '/' + nomPartie;
-	od.mkDir(gameDir);
+	od.sync(baseDir);
+	od.sync("Rami/" + nomPartie + ".txt");
+	od.refresh(baseDir);
 
-	od.sync(gameDir);
-	od.sync(gameDir + "/jeu.txt");
-	od.sync(gameDir + "/j1.txt");
-	od.sync(gameDir + "/pioche.txt");
-	od.sync(gameDir + "/defausse.txt");
-	od.sync(gameDir + "/plateau.txt");
-	od.refresh(gameDir);
-
-	if (!ifstream(od.getFullName(gameDir + "/jeu.txt")).good())
+	if (!ifstream(od.getFullName("Rami/" + nomPartie + ".txt")).good())
 	{
 		cout << "Cette partie n'existe pas" << endl;
 		system("PAUSE");
@@ -208,7 +192,6 @@ void Jeu::rejoindrePartie() {
 		cout << "Entrez votre nom :" << endl;
 		string nomJoueur;
 		getline(cin, nomJoueur);
-		pioche_.melanger();
 		nouveauJoueur(nomJoueur, "j2");
 		numJoueur_ = 1;
 		sauverJeu();
@@ -223,24 +206,42 @@ void Jeu::nouveauJoueur(string nom, string id) {
 void Jeu::poseCombinaison()
 {
 	vector<Combinaison> combinaisons;
-	vector<Carte> main;
+	vector<Carte> main = joueurs_[numJoueur_].getMain();
+	vector<Carte> main2 = joueurs_[numJoueur_].getMain();
 	string ch = "o";
-	while (ch == "o")
+
+	do
 	{
-		Combinaison combinaison = joueurs_[numJoueur_].nouvelleCombinaison();
+		vector<Carte> cartes;
+		vector<int> ids;
+		int id = 0;
+		do
+		{
+			joueurs_[numJoueur_].afficherMain(main);
+			cout << "Choisir l'id d'une carte et -1 pour finir : " << endl;
+			cin >> id;
+			if (id != -1)
+			{
+				cartes.push_back(main[id - 1]);
+				main.erase(main.begin() + id - 1);
+			}
+		} while (id != -1);
+
+		Combinaison combinaison(cartes);
 		if (combinaison.isValid())
 		{
 			combinaisons.push_back(combinaison);
-			
-			
+			main2 = main;
 		}
 		else
 		{
+			main = main2;
 			cout << "Combinaison invalide" << endl;
+			combinaison.afficherCombinaison();
 		}
 		cout << "Voulez-vous ajouter une autre combinaison? o/n" << endl;
-		getline(cin, ch);
-	}
+		cin >> ch;
+	} while (ch == "o");
 	if (combinaisons.size() > 0)
 	{
 		if (joueurs_[numJoueur_].getPose())
@@ -248,19 +249,8 @@ void Jeu::poseCombinaison()
 			for (int k = 0; k < combinaisons.size(); k++)
 			{
 				plateau_.ajouterCombinaison(combinaisons[k]);
-				for (int j = 0; j < joueurs_[numJoueur_].getMain().size(); j++)
-				{
-					bool notRetir = true;
-					for (int i = 0; i < combinaisons[k].getCartes().size(); i++)
-					{
-						if (joueurs_[numJoueur_].getMain()[i].getValeur() == combinaisons[k].getCartes()[j].getValeur()
-							&& joueurs_[numJoueur_].getMain()[i].getCouleur() == combinaisons[k].getCartes()[j].getCouleur())
-							notRetir = false;
-					}
-					if(notRetir)
-					main.push_back(joueurs_[numJoueur_].getMain()[j]);
-				}
 			}
+			joueurs_[numJoueur_].setMain(main);
 		}
 		else
 		{
@@ -268,13 +258,16 @@ void Jeu::poseCombinaison()
 			for (int i = 0; i < combinaisons.size(); i++)
 			{
 				score += combinaisons[i].getScore();
+
 			}
 			if (score > 20)
 			{
-				for (int i = 0; i < combinaisons.size(); i++)
+				for (int j = 0; j < combinaisons.size(); j++)
 				{
-					plateau_.ajouterCombinaison(combinaisons[i]);
+
+					plateau_.ajouterCombinaison(combinaisons[j]);
 				}
+				joueurs_[numJoueur_].setMain(main);
 			}
 			else
 			{
@@ -288,14 +281,14 @@ void Jeu::changeCombinaison()
 {
 	int id = 0;
 	plateau_.afficher();
-	cout << "Choisissez la combinaison à modifier : " << endl;
-	cin>> id;
+	cout << "Choisissez la combinaison Ã  modifier : " << endl;
+	cin >> id;
 	string choix = "0";
 	do
-	{	
+	{
 		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte à l'avant";
-		cout << "2. Rajouter une carte à l'arrière";
+		cout << "1. Rajouter une carte Ã  l'avant";
+		cout << "2. Rajouter une carte Ã  l'arriÃ¨re";
 		if (plateau_.getCombinaison(id).hasJoker())
 		{
 			cout << "3. Remplacer le joker";
@@ -305,7 +298,7 @@ void Jeu::changeCombinaison()
 			cout << "3. Cancel";
 		}
 		getline(cin, choix);
-	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4"&&plateau_.getCombinaison(id).hasJoker())));
+	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
 
 }
 
@@ -314,50 +307,56 @@ void Jeu::afficherRegles() {
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
 	cout << "Le premier qui pose toutes ses cartes gagne la manche" << endl;
 	cout << "Bonne chance " << endl;
+	cout << " Appuyez sur une touche pour commencer la partie" << endl;
 	system("PAUSE");
 	system("CLS");
 }
 
+
 void Jeu::sauverJeu() {
 
 	string baseDir = "Rami";
-	string gameDir = baseDir + '/' + nom_;
-	od.refresh(gameDir);
+	od.refresh(baseDir);
+	ofstream ofile(od.getFullName(baseDir + '/' + nom_ + ".txt"));
 
-	// Sauvegarde des joueurs
+	// Sauvegarde de jeu
+	ofile << "JEU" << endl;
+	ofile << nom_ << endl;
+	ofile << nbJoueurs_ << endl;
+	ofile << manche_ << endl;
+	ofile << numJoueur_ << endl;
+
+
+	// Sauver les joueurs
 	for (int i = 0; i < joueurs_.size(); i++) {
-		string fileName = joueurs_[i].getId();
-		ofstream ofile(od.getFullName(gameDir + '/' + fileName + ".txt"));
+		if (i == 0) { ofile << "J1" << endl; }
+		if (i == 1) { ofile << "J2" << endl; }
 		ofile << joueurs_[i].getNom() << endl;
 		ofile << joueurs_[i].getId() << endl;
 		ofile << joueurs_[i].getScore() << endl;
 		ofile << joueurs_[i].getNombreCarte() << endl;
-		ofile.close();
 	}
 
 	// Sauvegarde de la pioche
-	ofstream ofile(od.getFullName(gameDir + "/pioche.txt"));
+	ofile << "PIOCHE" << endl;
 	ofile << pioche_.getTaillePioche() << endl;
 	for (int i = 0; i < pioche_.getTaillePioche(); i++) {
 		ofile << pioche_.getPioche()[i].getValeur() << endl;
 		ofile << pioche_.getPioche()[i].getCouleur() << endl;
 
 	}
-	ofile.close();
 
 	// Sauvegarde de la defausse
-	ofile.open(od.getFullName(gameDir + "/defausse.txt"));
+	ofile << "DEFAUSSE" << endl;
 	ofile << pioche_.getTailleDefausse() << endl;
 	for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
 		ofile << pioche_.getDefausse()[i].getValeur() << endl;
 		ofile << pioche_.getDefausse()[i].getCouleur() << endl;
 
 	}
-	ofile.close();
-
 
 	// Sauvegarde du plateau
-	ofile.open(od.getFullName(gameDir + "/plateau.txt"));
+	ofile << "PLATEAU" << endl;
 	ofile << plateau_.getnombreCombinaison() << endl;
 	for (int i = 0; i < plateau_.getnombreCombinaison(); i++)
 	{
@@ -368,115 +367,96 @@ void Jeu::sauverJeu() {
 		ofile << "NB" << endl;
 		ofile << "NB" << endl;
 	}
-
 	ofile.close();
-
-
-	// Sauvegarde de jeu
-	ofile.open(od.getFullName(gameDir + "/jeu.txt"));
-	ofile << nom_ << endl;
-	ofile << nbJoueurs_ << endl;
-	ofile << manche_ << endl;
-	ofile << numJoueur_ << endl;
-	ofile.close();
-	od.sync(gameDir);
-	ofile.close();
-
+	od.refresh(baseDir);
 }
 
 
 void Jeu::chargerJeu() {
 	string baseDir = "Rami";
-	string gameDir = baseDir + '/' + nom_;
-	od.refresh(gameDir);
-
-	// Charger le jeu
-	ifstream ifile(od.getFullName(gameDir + "/jeu.txt"));
+	od.refresh(baseDir);
+	ifstream ifile(od.getFullName(baseDir + '/' + nom_ + ".txt"));
+	string buffer;
 	if (ifile.good()) {
-		ifile >> nom_;
-		ifile >> nbJoueurs_;
-	}
-	ifile.close();
-
-	// Charger les joueurs
-	for (int i = 0; i < joueurs_.size(); i++) {
-		ifstream ifile(od.getFullName(gameDir + "/j" + to_string(i + 1) + ".txt"));
-		if (ifile.good()) {
-			string buffer;
-			ifile >> buffer;
-			joueurs_[i].setNom(buffer);
-			ifile >> buffer;
-			joueurs_[i].setId(buffer);
-			ifile >> buffer;
-			joueurs_[i].setScore(stoi(buffer));
-			ifile >> buffer;
-			joueurs_[i].setNombreCarte(stoi(buffer));
-		}
-		ifile.close();
-	}
-
-	// Charger la pioche
-	ifile.open(od.getFullName(gameDir + "/pioche.txt"));
-	if (ifile.good()) {
-		string buffer;
+		// Charger le jeu
 		ifile >> buffer;
-		pioche_.setTaillePioche(stoi(buffer));
-		vector<Carte> nouvellePioche;
-		string valeur;
-		string couleur;
-		for (int i = 0; i < pioche_.getTaillePioche(); i++) {
-			ifile >> valeur;
-			ifile >> couleur;
-			nouvellePioche.push_back(Carte(valeur, couleur));
+		if (buffer == "JEU") {
+			ifile >> nom_;
+			ifile >> nbJoueurs_;
+			ifile >> buffer;
+			ifile >> buffer;
 		}
-		pioche_.setPioche(nouvellePioche);
-	}
-	ifile.close();
 
+		// Charger les joueurs
+		for (int i = 0; i < joueurs_.size(); i++) {
+			ifile >> buffer;
+			if ((buffer == "J1" && i == 0) || (buffer == "J2" && i == 1)) {
+				ifile >> buffer;
+				joueurs_[i].setNom(buffer);
+				ifile >> buffer;
+				joueurs_[i].setId(buffer);
+				ifile >> buffer;
+				joueurs_[i].setScore(stoi(buffer));
+				ifile >> buffer;
+				joueurs_[i].setNombreCarte(stoi(buffer));
+			}
+		}
 
-	// Charger la defausse
-	ifile.open(od.getFullName(gameDir + "/defausse.txt"));
-	if (ifile.good()) {
-		string buffer;
+		// Charger la pioche
 		ifile >> buffer;
-		pioche_.setTailleDefausse(stoi(buffer));
-		vector<Carte> nouvelleDefausse;
-		string valeur;
-		string couleur;
-		for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
-			ifile >> valeur;
-			ifile >> couleur;
-			nouvelleDefausse.push_back(Carte(valeur, couleur));
-		}
-		pioche_.setDefausse(nouvelleDefausse);
-	}
-	ifile.close();
-
-
-	// Charger le plateau
-	ifile.open(od.getFullName(gameDir + "/plateau.txt"));
-	if (ifile.good()) {
-		int nb;
-		ifile >> nb;
-		plateau_.setNombreCombinaison(nb);
-		string valeur = " ";
-		string couleur = " ";
-		int i=0;
-		vector<Combinaison> combinaisons;
-		while ( i < nb){
-			Combinaison c;
-			while (valeur != "NC") {
+		if (buffer == "PIOCHE") {
+			ifile >> buffer;
+			pioche_.setTaillePioche(stoi(buffer));
+			vector<Carte> nouvellePioche;
+			string valeur;
+			string couleur;
+			for (int i = 0; i < pioche_.getTaillePioche(); i++) {
 				ifile >> valeur;
 				ifile >> couleur;
-				c.ajouterCarte(Carte(valeur, couleur));
+				nouvellePioche.push_back(Carte(valeur, couleur));
 			}
-			combinaisons.push_back(c);
+			pioche_.setPioche(nouvellePioche);
 		}
-		plateau_.setCombinaisons(combinaisons);
+
+		// Charger la defausse
+		ifile >> buffer;
+		if (buffer == "DEFAUSSE") {
+			ifile >> buffer;
+			pioche_.setTailleDefausse(stoi(buffer));
+			vector<Carte> nouvelleDefausse;
+			string valeur;
+			string couleur;
+			for (int i = 0; i < pioche_.getTailleDefausse(); i++) {
+				ifile >> valeur;
+				ifile >> couleur;
+				nouvelleDefausse.push_back(Carte(valeur, couleur));
+			}
+			pioche_.setDefausse(nouvelleDefausse);
+		}
+
+		// Charger le plateau
+		ifile >> buffer;
+		if (buffer == "PIOCHE") {
+			int nb;
+			ifile >> nb;
+			plateau_.setNombreCombinaison(nb);
+			string valeur = " ";
+			string couleur = " ";
+			int i = 0;
+			vector<Combinaison> combinaisons;
+			while (i < nb) {
+				Combinaison c;
+				while (valeur != "NC") {
+					ifile >> valeur;
+					ifile >> couleur;
+					c.ajouterCarte(Carte(valeur, couleur));
+				}
+				combinaisons.push_back(c);
+			}
+			plateau_.setCombinaisons(combinaisons);
+		}
 	}
 	ifile.close();
-
-
 }
 
 void Jeu::abandonner() {
@@ -501,10 +481,5 @@ void Jeu::exec() {
 }
 Jeu::~Jeu()
 {
-	od.delFile("Rami/" + nom_ + "/jeu.txt");
-	od.delFile("Rami/" + nom_ + "/j1.txt");
-	od.delFile("Rami/" + nom_ + "/j2.txt");
-	od.delFile("Rami/" + nom_ + "/pioche.txt");
-	od.delFile("Rami/" + nom_ + "/defausse.txt");
-	od.delFile("Rami/" + nom_ + "/plateau.txt");
+	od.delFile("Rami/" + nom_ + ".txt");
 }

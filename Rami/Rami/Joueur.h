@@ -28,10 +28,11 @@ public:
 	void setId(string value) { id_ = value; }
 	void setScore(int value) { score_ = value; }
 	void setNombreCarte(int value) { nombreCarte_ = value; }
+	void setMain(vector<Carte> maino) { main = maino; }
 	Carte choisirCarte(int i);
-	Combinaison nouvelleCombinaison();
 	vector<Carte> getMain() { return main; }
-	void afficherMain(vector<Carte> retir);
+	Combinaison nouvelleCombinaison(vector<Carte> maino);
+	void afficherMain(vector<Carte> maino);
 	void afficherMain();
 	void piocher();
 	void defausser();

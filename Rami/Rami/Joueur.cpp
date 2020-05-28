@@ -7,51 +7,34 @@ Carte Joueur::choisirCarte(int i)
 	return main[i];
 }
 // Retourne une combinason de cartes séléectionnées par le joueur.
-Combinaison Joueur::nouvelleCombinaison()
+Combinaison Joueur::nouvelleCombinaison(vector<Carte> maino)
 {
-	vector<int> ids;
-	vector<Carte> retir;
-	int id = 0;
+	int id = 1;
+	vector<Carte> cartes;
 	do
 	{
-		afficherMain(retir);
+		afficherMain(maino);
 		cout << "Choisir l'id d'une carte et -1 pour finir : " << endl;
 		cin >> id;
 		if (id != -1)
 		{
-			ids.push_back(id);
-		}
+			cartes.push_back(maino[id-1]);
+			maino.erase(maino.begin() + id);
+		}	
+
 	} while (id != -1);
-	vector<Carte> cartes;
-	for (int i = 0; i < ids.size(); i++)
-	{
-		cartes.push_back(main[i]);
-	}
 	Combinaison combi(cartes);
 	return combi;
 
 }
-void Joueur::afficherMain(vector<Carte> retir)
+void Joueur::afficherMain(vector<Carte> maino)
 {
 
-	for (int i = 0; i < (int)main.size(); i++)
+	for (int i = 0; i < (int)maino.size(); i++)
 	{
-		bool canAff = true;
-		for (int j = 0; j < (int)retir.size()&&!canAff; j++)
-		{
-			if (main[j].getValeur() == retir[i].getValeur()
-				&& main[j].getCouleur() == retir[i].getCouleur())
-			{
-				canAff = false;
-			}
-		}
-		if (canAff == true)
-		{
-			std::cout << i + 1 << ".";
-			main[i].afficherCarte();
-			std::cout << " \n";
-		}
-
+		std::cout << i + 1 << ".";
+		maino[i].afficherCarte();
+		std::cout << " \n";
 	}
 }
 // Affiche les cartes que le joueur à en main.
@@ -92,9 +75,9 @@ void Joueur::defausser() {
 	afficherMain();
 	int choix;
 	do {
-		cout << "Choisissez la carte a defausser : ";
+		cout << "Choisissez la carte a defausser : " << endl;
 		cin >> choix;
-	} while (choix < 1 || choix > 8);
+	} while (choix < 0 || choix>7);
 	choix--;
 	pioche_->defausserCarte(main[choix]);
 	main.erase(main.begin() + choix);
