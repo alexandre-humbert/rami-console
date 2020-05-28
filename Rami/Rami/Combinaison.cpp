@@ -154,9 +154,9 @@ int Combinaison::getScore()
 	{
 		for (int i = 0; i<cartes_.size(); i++)
 		{
-			if (cartes_[0].getValeur() != "1")
+			if (cartes_[i].getValeur() != "1")
 			{
-				istringstream is1(cartes_[0].getValeur());
+				istringstream is1(cartes_[i].getValeur());
 				int n1;
 				is1 >> n1;
 				score += min(n1, 11);
