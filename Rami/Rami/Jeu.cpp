@@ -278,25 +278,68 @@ void Jeu::poseCombinaison()
 void Jeu::changeCombinaison()
 {
 	int id = 0;
+	int id2=0;
 	plateau_.afficher();
 	cout << "Choisissez la combinaison a modifier : " << endl;
 	cin >> id;
 	string choix = "0";
 	do
 	{
-		cout << "Que voulez vous faire ?"<<endl;
-		cout << "1. Rajouter une carte a l'avant"<<endl;
-		cout << "2. Rajouter une carte a l'arriere"<<endl;
-		if (plateau_.getCombinaison(id-1).hasJoker())
+		cout << "Que voulez vous faire ?" << endl;
+		cout << "1. Rajouter une carte a l'arriere" << endl;
+		cout << "2. Rajouter une carte a l'avant" << endl;
+		if (plateau_.getCombinaison(id - 1).hasJoker())
 		{
-			cout << "3. Remplacer le joker"<<endl;
-			cout << "4. Annuler"<<endl;
+			cout << "3. Remplacer le joker" << endl;
+			cout << "4. Annuler" << endl;
 		}
 		else {
-			cout << "3. Annuler"<<endl;
+			cout << "3. Annuler" << endl;
 		}
 		getline(cin, choix);
 	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
+	vector<Carte> main = joueurs_[numJoueur_].getMain();
+	vector<Carte> cartes;
+	joueurs_[numJoueur_].afficherMain();
+	cout << "Choisir l'id d'une carte : " << endl;
+	cin >> id2;
+
+	if (choix == "1") {
+		cartes = plateau_.getCombinaison(id - 1).getCartes();
+		cartes.push_back(joueurs_[numJoueur_].getMain()[id2-1]);
+		Combinaison combinaison(cartes);
+		combinaison.afficherCombinaison();
+		if (combinaison.isValid())
+		{
+			plateau_.setCombinaison(id - 1, combinaison);
+			main.erase(main.begin() + id2 - 1);
+			joueurs_[numJoueur_].setMain(main);
+		}
+	}
+
+	else if (choix == "2") {
+		cartes = plateau_.getCombinaison(id - 1).getCartes();
+		
+		for (int i = cartes.size(); i <1; i++)
+		{
+			cartes[i] = cartes[i - 1];
+		}
+		cartes[0] = joueurs_[numJoueur_].getMain()[id2-1];
+		Combinaison combinaison(cartes);
+		combinaison.afficherCombinaison();
+		if (combinaison.isValid())
+		{
+			plateau_.setCombinaison(id - 1, combinaison);
+			main.erase(main.begin() + id2 - 1);
+			joueurs_[numJoueur_].setMain(main);
+		}
+	}
+	else if (choix == "3") {
+		cout << "Joker";
+	}
+	else if (choix == "4") {
+		cout << "Joker";
+	}
 
 }
 
