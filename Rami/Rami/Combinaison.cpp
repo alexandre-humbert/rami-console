@@ -81,7 +81,7 @@ bool Combinaison::isBrelan()
 
 bool Combinaison::isSuite()
 {
-	if (cartes_.size() <= 3)
+	if (cartes_.size() < 3)
 		return false;
 	else
 	{
