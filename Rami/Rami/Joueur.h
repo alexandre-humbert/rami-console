@@ -35,6 +35,9 @@ public:
 	void afficherMain(vector<Carte> maino);
 	void afficherMain();
 	void piocher();
+	int compterPoints();
+	void renouvelerCartes();
+	void tirerDefausse();
 	void defausser();
 	Joueur(string nom, string id, Pioche* pioche);
 	~Joueur();

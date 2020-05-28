@@ -3,6 +3,9 @@
 #include "odrive.h"
 #include <fstream>
 
+#define POINTS_MIN 20
+#define POINTS_WIN 100
+
 Jeu::Jeu()
 {
 
@@ -10,7 +13,7 @@ Jeu::Jeu()
 
 void Jeu::afficherTour()
 {
-	cout << "Manche " << manche_ << endl;
+	cout << "Tour " << tour_ << endl;
 	for (int i = 0; i < 2; i++) {
 		cout << "Joueur : " << joueurs_[i].getNom() << endl;
 		cout << "Score : " << joueurs_[i].getScore() << endl;
@@ -34,10 +37,29 @@ void Jeu::effectuerTour()
 			cout << "C'est votre tour" << endl;
 			cout << "_________________" << endl;
 			afficherTour();
-			cout << "Piochez une carte" << endl;
-			system("PAUSE");
-			system("CLS");
-			joueurs_[numJoueur_].piocher();
+			string c = "0";
+			cout << "1. Piochez une carte" << endl;
+			cout << "2. Tirer dans la defausse" << endl;
+			do {
+				cin >> c;
+			} while (c != "1" && c != "2");
+			if (c == "1") {
+				system("PAUSE");
+				system("CLS");
+				joueurs_[numJoueur_].piocher();
+			}
+			else if (c == "2") {
+				if (pioche_.getTailleDefausse() == 0) {
+					cout << "Pas de carte dans la defausse, piochez" << endl;
+					system("PAUSE");
+					joueurs_[numJoueur_].piocher();
+				}
+				else {
+					system("PAUSE");
+					system("CLS");
+					joueurs_[numJoueur_].tirerDefausse();
+				}
+			}
 			menuTour();		
 			cout << " C'est au joueur adverse de jouer" << endl;
 			od.waitForChange("Rami/" + nom_ + ".txt");
@@ -52,12 +74,31 @@ void Jeu::effectuerTour()
 		cout << "C'est votre tour" << endl;
 		cout << "_________________" << endl;
 		afficherTour();
-		cout << "Piochez une carte" << endl;
-		system("PAUSE");
-		system("CLS");
-		joueurs_[numJoueur_].piocher();
+		string c = "0";
+		cout << "1. Piochez une carte" << endl;
+		cout << "2. Tirer dans la defausse" << endl;
+		do {
+			cin >> c;
+		} while (c != "1" && c != "2");
+		if (c == "1") {
+			system("PAUSE");
+			system("CLS");
+			joueurs_[numJoueur_].piocher();
+		}
+		else if (c == "2") {
+			if (pioche_.getTailleDefausse() == 0) {
+				cout << "Pas de carte dans la defausse, piochez" << endl;
+				system("PAUSE");
+				joueurs_[numJoueur_].piocher();
+			}
+			else {
+				system("PAUSE");
+				system("CLS");
+				joueurs_[numJoueur_].tirerDefausse();
+			}
+		}
 		menuTour();
-		manche_++;
+		tour_++;
 		sauverJeu();
 		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
@@ -80,7 +121,6 @@ void Jeu::menuTour() {
 	}
 	if (choix == "1") {
 		poseCombinaison();
-		cout << "fin combinaison";
 		menuTour();
 	}
 
@@ -98,7 +138,7 @@ void Jeu::menuTour() {
 		abandonner();
 	}
 	if (choix != "4") {
-		manche_++;
+		tour_++;
 		sauverJeu();
 		cout << "_________________" << endl;
 		cout << "Fin de votre tour" << endl;
@@ -258,7 +298,7 @@ void Jeu::poseCombinaison()
 				score += combinaisons[i].getScore();
 
 			}
-			if (score > 20)
+			if (score > POINTS_MIN)
 			{
 				for (int j = 0; j < combinaisons.size(); j++)
 				{
@@ -269,7 +309,9 @@ void Jeu::poseCombinaison()
 			}
 			else
 			{
-				cout << "Les combinaisons doivent faire 20 points" << endl;
+				cout << "La combinaison doit faire " << to_string(POINTS_MIN) << " points" << endl;
+				system("PAUSE");
+				system("CLK");
 			}
 		}
 	}
@@ -278,7 +320,7 @@ void Jeu::poseCombinaison()
 void Jeu::changeCombinaison()
 {
 	int id = 0;
-	int id2=0;
+	int id2 = 0;
 	plateau_.afficher();
 	cout << "Choisissez la combinaison a modifier : " << endl;
 	cin >> id;
@@ -286,14 +328,21 @@ void Jeu::changeCombinaison()
 	do
 	{
 		cout << "Que voulez vous faire ?" << endl;
+		cout << "1. Rajouter une carte a l'avant" << endl;
+		cout << "2. Rajouter une carte a l'arriere" << endl;
+		if (plateau_.getCombinaison(id - 1).hasJoker())
+			cout << "Que voulez vous faire ?" << endl;
 		cout << "1. Rajouter une carte a l'arriere" << endl;
 		cout << "2. Rajouter une carte a l'avant" << endl;
 		if (plateau_.getCombinaison(id - 1).hasJoker())
 		{
 			cout << "3. Remplacer le joker" << endl;
 			cout << "4. Annuler" << endl;
+			cout << "3. Remplacer le joker" << endl;
+			cout << "4. Annuler" << endl;
 		}
 		else {
+			cout << "3. Annuler" << endl;
 			cout << "3. Annuler" << endl;
 		}
 		getline(cin, choix);
@@ -306,7 +355,7 @@ void Jeu::changeCombinaison()
 
 	if (choix == "1") {
 		cartes = plateau_.getCombinaison(id - 1).getCartes();
-		cartes.push_back(joueurs_[numJoueur_].getMain()[id2-1]);
+		cartes.push_back(joueurs_[numJoueur_].getMain()[id2 - 1]);
 		Combinaison combinaison(cartes);
 		combinaison.afficherCombinaison();
 		if (combinaison.isValid())
@@ -319,12 +368,12 @@ void Jeu::changeCombinaison()
 
 	else if (choix == "2") {
 		cartes = plateau_.getCombinaison(id - 1).getCartes();
-		
-		for (int i = cartes.size(); i <1; i++)
+
+		for (int i = cartes.size(); i < 1; i++)
 		{
 			cartes[i] = cartes[i - 1];
 		}
-		cartes[0] = joueurs_[numJoueur_].getMain()[id2-1];
+		cartes[0] = joueurs_[numJoueur_].getMain()[id2 - 1];
 		Combinaison combinaison(cartes);
 		combinaison.afficherCombinaison();
 		if (combinaison.isValid())
@@ -362,7 +411,7 @@ void Jeu::sauverJeu() {
 	ofile << "JEU" << endl;
 	ofile << nom_ << endl;
 	ofile << nbJoueurs_ << endl;
-	ofile << manche_ << endl;
+	ofile << tour_ << endl;
 	ofile << numJoueur_ << endl;
 
 
@@ -509,13 +558,32 @@ void Jeu::exec() {
 	afficherBootScreen();
 	afficherRegles();
 	demarrerPartie();
-	while (nbJoueurs_ == 2) {
+	while (nbJoueurs_ == 2 && joueurs_[0].getScore() < POINTS_WIN && joueurs_[1].getScore() < POINTS_WIN) {
 		while (joueurs_[0].getNombreCarte() != 0 && joueurs_[1].getNombreCarte() != 0 && nbJoueurs_ == 2) {
 			effectuerTour();
 		}
-		// Nouvelle pioche
-		// Redistribuer carte
+		cout << "_______________" << endl;
+		cout << "FIN DE LA MANCHE" << endl;
+		cout << "_______________" << endl;
+		joueurs_[0].compterPoints();
+		joueurs_[1].compterPoints();
+		for (int i = 0; i < 2; i++) {
+			if (joueurs_[i].getNombreCarte() == 0) {
+				cout << joueurs_[i].getNom() << "remporte la manche" << endl;
+			}
+		}
+		pioche_ = Pioche(nom_);
+		joueurs_[0].renouvelerCartes();
+		joueurs_[1].renouvelerCartes();
 	}
+	if (joueurs_[0].getScore() > joueurs_[1].getScore()){
+		cout << joueurs_[0].getNom() << "remporte la partie" << endl;
+	}
+	else if (joueurs_[1].getScore() > joueurs_[1].getScore()) {
+		cout << joueurs_[1].getNom() << "remporte la partie" << endl;
+	}
+	else { cout << "Egalite" << endl; }
+
 }
 Jeu::~Jeu()
 {

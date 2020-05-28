@@ -13,7 +13,7 @@ class Jeu
 	vector<Joueur>joueurs_;
 	Plateau	plateau_;
 	Pioche pioche_;
-	int manche_ = 1;
+	int tour_ = 1;
 	ODrive od;
 public:
 

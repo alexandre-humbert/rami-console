@@ -98,7 +98,29 @@ Joueur::Joueur(string nom, string id, Pioche *pioche)
 	nombreCarte_ = 7;
 }
 
+// Compte les points des cartes d'un joueur en fin de manche
+int Joueur::compterPoints() {
+	int points =0;
+	for (int i = 0; i < nombreCarte_; i++) {
+		if (main[i].getValeur() == "x") { points += 20; }
+		else { points += min(stoi(main[i].getValeur()), 11);}
+	}
+	return points;
+}
 
+void Joueur::renouvelerCartes() {
+	main.clear();
+	for (int i = 0; i < 7; i++)
+	{
+		main.push_back(pioche_->tirerCarte());
+	}
+	nombreCarte_ = 7;
+}
+
+void Joueur::tirerDefausse()
+{
+	main.push_back(pioche_->prendreDefausse());
+}
 Joueur::~Joueur()
 {
 }

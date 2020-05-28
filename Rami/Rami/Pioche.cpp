@@ -172,7 +172,14 @@ void Pioche::defausserCarte(Carte c)
 }
 
 
-
+Carte Pioche::prendreDefausse()
+{
+	Carte c;
+	c = defausse_.back();
+	defausse_.pop_back();
+	tailleDefausse_--;
+	return c;
+}
 
 Pioche::~Pioche()
 {

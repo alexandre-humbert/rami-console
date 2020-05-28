@@ -24,6 +24,7 @@ public:
 	Carte tirerCarte();
 	void afficherDefausse();
 	void defausserCarte(Carte c);
+	Carte prendreDefausse();
 	~Pioche();
 };
 
