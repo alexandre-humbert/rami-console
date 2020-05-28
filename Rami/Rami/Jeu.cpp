@@ -269,7 +269,7 @@ void Jeu::poseCombinaison()
 			}
 			else
 			{
-				cout << "La combinaison doit faire 20 points" << endl;
+				cout << "Les combinaisons doivent faire 20 points" << endl;
 			}
 		}
 	}
