@@ -19,6 +19,7 @@ public:
 
 	Jeu();
 	void afficherBootScreen();
+	void menuTour();
 	void demarrerPartie();
 	void creerPartie();
 	void rejoindrePartie();

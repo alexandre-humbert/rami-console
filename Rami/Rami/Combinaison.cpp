@@ -99,7 +99,7 @@ bool Combinaison::isSuite()
 		}
 		for (int i = 0; i < (int)cartes.size()-1; i++)
 		{
-			if (((cartes[i] - cartes[i+1])!=1 )||(cartes[i].getCouleur() != cartes[i + 1].getCouleur()&& cartes[i].getCouleur() !="x" &&cartes[i+1].getCouleur() !="x" )||( cartes[i].getValeur()=="x"&&i>0))
+			if (((cartes[i] - cartes[i+1])!=1 )||(cartes[i].getCouleur() != cartes[i +1].getCouleur()&& cartes[i].getCouleur() !="x" &&cartes[i+1].getCouleur() !="x" )||( cartes[i].getValeur()=="x"&&i>0))
 			{
 				if ((cartes[i].getValeur() == "x")&&(i > 0)&&((cartes[i-1]- cartes[i+1])==2))
 				{

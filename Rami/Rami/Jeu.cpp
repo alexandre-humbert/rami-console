@@ -38,40 +38,14 @@ void Jeu::effectuerTour()
 			system("PAUSE");
 			system("CLS");
 			joueurs_[numJoueur_].piocher();
-			string choix = "0";
-			while (choix != "1" && choix != "2" && choix != "3"){
-				afficherTour();
-				cout << "Que voulez-vous faire ?" << endl;
-				cout << "1. Poser des combinaison" << endl;
-				cout << "2. Defausser une carte" << endl;
-				cout << "3. Abandonner" << endl;
-				getline(cin, choix);
-			} 
-			if (choix == "1")
-			{
-				poseCombinaison();
-			}
-		else if (choix == "2") {
-			joueurs_[numJoueur_].defausser();
-		}
-		else {
-			abandonner();
-		}
-		if (choix != "3") {
-			manche_++;
-			sauverJeu();
-			cout << "_________________" << endl;
-			cout << "Fin de votre tour" << endl;
-			cout << "_________________" << endl;
+			menuTour();		
 			cout << " C'est au joueur adverse de jouer" << endl;
 			od.waitForChange("Rami/" + nom_ + ".txt");
 			chargerJeu();
-		}
 	}
 
 	if (numJoueur_ == 1) {
 		cout << "C'est au joueur adverse de jouer" << endl;
-		od.refresh("Rami/");
 		od.waitForChange("Rami/" + nom_ + ".txt");
 		chargerJeu();
 		cout << "_________________" << endl;
@@ -82,24 +56,47 @@ void Jeu::effectuerTour()
 		system("PAUSE");
 		system("CLS");
 		joueurs_[numJoueur_].piocher();
-		string choix = "0";
-		while (choix != "1" && choix != "2" && choix != "3"){
-			afficherTour();
-			cout << "Que voulez-vous faire ?" << endl;
-			cout << "1. Poser des combinaison" << endl;
-			cout << "2. Defausser une carte" << endl;
-			cout << "3. Abandonner" << endl;
-			getline(cin, choix);
-		} 
-		if (choix == "1") {
-			poseCombinaison();
+		menuTour();
+		manche_++;
+		sauverJeu();
+		cout << "_________________" << endl;
+		cout << "Fin de votre tour" << endl;
+		cout << "_________________" << endl;
+	}
+}
+
+
+void Jeu::menuTour() {
+
+	string choix = "0";
+	while (choix != "1" && choix != "2" && choix != "3" && choix=="4") {
+		afficherTour();
+		cout << "Que voulez-vous faire ?" << endl;
+		cout << "1. Poser des combinaison" << endl;
+		cout << "2. Modifier une combinaison" << endl;
+		cout << "3. Defausser une carte" << endl;
+		cout << "4. Abandonner" << endl;
+		getline(cin, choix);
+	}
+	if (choix == "1") {
+		poseCombinaison();
+		menuTour();
+	}
+
+	else if (choix == "2") {
+		if (plateau_.getnombreCombinaison() != 0) {
+			changeCombinaison();
 		}
-		else if (choix == "2") {
-			joueurs_[numJoueur_].defausser();
-		}
-		else {
-			abandonner();
-		}
+		else { cout << " Aucune combinaison modifiable" << endl; }
+		menuTour();
+	}
+	else if (choix == "3") {
+		joueurs_[numJoueur_].defausser();
+	}
+	else if (choix =="4") {
+		abandonner();
+	}
+	if (choix != "4") {
 		manche_++;
 		sauverJeu();
 		cout << "_________________" << endl;
@@ -281,21 +278,21 @@ void Jeu::changeCombinaison()
 {
 	int id = 0;
 	plateau_.afficher();
-	cout << "Choisissez la combinaison Ã  modifier : " << endl;
+	cout << "Choisissez la combinaison a modifier : " << endl;
 	cin >> id;
 	string choix = "0";
 	do
 	{
 		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte Ã  l'avant";
-		cout << "2. Rajouter une carte Ã  l'arriÃ¨re";
+		cout << "1. Rajouter une carte a l'avant";
+		cout << "2. Rajouter une carte a l'arriere";
 		if (plateau_.getCombinaison(id).hasJoker())
 		{
 			cout << "3. Remplacer le joker";
-			cout << "4. Cancel";
+			cout << "4. Annuler";
 		}
 		else {
-			cout << "3. Cancel";
+			cout << "3. Annuler";
 		}
 		getline(cin, choix);
 	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
@@ -314,9 +311,7 @@ void Jeu::afficherRegles() {
 
 
 void Jeu::sauverJeu() {
-
 	string baseDir = "Rami";
-	od.refresh(baseDir);
 	ofstream ofile(od.getFullName(baseDir + '/' + nom_ + ".txt"));
 
 	// Sauvegarde de jeu
@@ -374,7 +369,6 @@ void Jeu::sauverJeu() {
 
 void Jeu::chargerJeu() {
 	string baseDir = "Rami";
-	od.refresh(baseDir);
 	ifstream ifile(od.getFullName(baseDir + '/' + nom_ + ".txt"));
 	string buffer;
 	if (ifile.good()) {
