@@ -152,7 +152,7 @@ int Combinaison::getScore()
 	}
 	if (isSuite())
 	{
-		for (int i = 0; cartes_.size(); i++)
+		for (int i = 0; i<cartes_.size(); i++)
 		{
 			if (cartes_[0].getValeur() != "1")
 			{
