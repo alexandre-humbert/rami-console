@@ -58,6 +58,7 @@ void Jeu::effectuerTour()
 					system("PAUSE");
 					system("CLS");
 					joueurs_[numJoueur_].tirerDefausse();
+					system("CLS");
 				}
 			}
 			menuTour();		
@@ -108,7 +109,7 @@ void Jeu::effectuerTour()
 
 
 void Jeu::menuTour() {
-
+	system("CLS");
 	string choix = "0";
 	while (choix != "1" && choix != "2" && choix != "3" && choix!="4") {
 		afficherTour();
@@ -117,7 +118,7 @@ void Jeu::menuTour() {
 		cout << "2. Modifier une combinaison" << endl;
 		cout << "3. Defausser une carte" << endl;
 		cout << "4. Abandonner" << endl;
-		getline(cin, choix);
+		cin >> choix;
 	}
 	if (choix == "1") {
 		poseCombinaison();
@@ -338,7 +339,7 @@ void Jeu::changeCombinaison()
 		else {
 			cout << "3. Annuler" << endl;
 		}
-		getline(cin, choix);
+		cin >> choix;
 	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
 	vector<Carte> main = joueurs_[numJoueur_].getMain();
 	vector<Carte> cartes;
@@ -529,7 +530,9 @@ void Jeu::chargerJeu() {
 				while (valeur != "NC") {
 					ifile >> valeur;
 					ifile >> couleur;
-					c.ajouterCarte(Carte(valeur, couleur));
+					if (valeur != "NC" && couleur != "NC") {
+						c.ajouterCarte(Carte(valeur, couleur));
+					}
 				}
 				i++;
 				combinaisons.push_back(c);
