@@ -10,7 +10,7 @@ class Pioche
 	int tailleDefausse_ = 0;
 
 public:
-	Pioche();
+	Pioche(string name =" ");
 	int getTaillePioche();
 	int getTailleDefausse();
 	vector<Carte> getPioche() { return cartes_; }

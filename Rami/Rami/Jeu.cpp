@@ -154,7 +154,7 @@ void Jeu::creerPartie() {
 	cout << "Entrez votre nom :" << endl;
 	string nomJoueur;
 	getline(cin, nomJoueur);
-	pioche_.melanger();
+	pioche_ = Pioche(nom_);
 	nouveauJoueur(nomJoueur, "j1");
 	numJoueur_ = 0;
 	sauverJeu();
