@@ -80,6 +80,7 @@ void Jeu::menuTour() {
 	}
 	if (choix == "1") {
 		poseCombinaison();
+		cout << "fin combinaison";
 		menuTour();
 	}
 
@@ -359,8 +360,8 @@ void Jeu::sauverJeu() {
 			ofile << plateau_.getCombinaison(i).getCarte(j).getValeur() << endl;
 			ofile << plateau_.getCombinaison(i).getCarte(j).getCouleur() << endl;
 		}
-		ofile << "NB" << endl;
-		ofile << "NB" << endl;
+		ofile << "NC" << endl;
+		ofile << "NC" << endl;
 	}
 	ofile.close();
 	od.refresh(baseDir);
@@ -430,7 +431,7 @@ void Jeu::chargerJeu() {
 
 		// Charger le plateau
 		ifile >> buffer;
-		if (buffer == "PIOCHE") {
+		if (buffer == "PLATEAU") {
 			int nb;
 			ifile >> nb;
 			plateau_.setNombreCombinaison(nb);
