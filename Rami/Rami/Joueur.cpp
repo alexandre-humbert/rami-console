@@ -77,7 +77,7 @@ void Joueur::defausser() {
 	do {
 		cout << "Choisissez la carte a defausser : ";
 		cin >> choix;
-	} while (choix < 1 || choix>8);
+	} while (choix < 1 || choix>nombreCarte_);
 	choix--;
 	pioche_->defausserCarte(main[choix]);
 	main.erase(main.begin() + choix);
