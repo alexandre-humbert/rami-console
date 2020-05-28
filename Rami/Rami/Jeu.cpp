@@ -531,6 +531,7 @@ void Jeu::chargerJeu() {
 					ifile >> couleur;
 					c.ajouterCarte(Carte(valeur, couleur));
 				}
+				i++;
 				combinaisons.push_back(c);
 			}
 			plateau_.setCombinaisons(combinaisons);
