@@ -284,16 +284,16 @@ void Jeu::changeCombinaison()
 	string choix = "0";
 	do
 	{
-		cout << "Que voulez vous faire ?";
-		cout << "1. Rajouter une carte a l'avant";
-		cout << "2. Rajouter une carte a l'arriere";
-		if (plateau_.getCombinaison(id).hasJoker())
+		cout << "Que voulez vous faire ?"<<endl;
+		cout << "1. Rajouter une carte a l'avant"<<endl;
+		cout << "2. Rajouter une carte a l'arriere"<<endl;
+		if (plateau_.getCombinaison(id-1).hasJoker())
 		{
-			cout << "3. Remplacer le joker";
-			cout << "4. Annuler";
+			cout << "3. Remplacer le joker"<<endl;
+			cout << "4. Annuler"<<endl;
 		}
 		else {
-			cout << "3. Annuler";
+			cout << "3. Annuler"<<endl;
 		}
 		getline(cin, choix);
 	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
