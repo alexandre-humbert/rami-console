@@ -105,6 +105,7 @@ int Joueur::compterPoints() {
 		if (main[i].getValeur() == "x") { points += 20; }
 		else { points += min(stoi(main[i].getValeur()), 11);}
 	}
+	score_ += points;
 	return points;
 }
 
@@ -120,6 +121,7 @@ void Joueur::renouvelerCartes() {
 void Joueur::tirerDefausse()
 {
 	main.push_back(pioche_->prendreDefausse());
+	nombreCarte_++;
 }
 Joueur::~Joueur()
 {
