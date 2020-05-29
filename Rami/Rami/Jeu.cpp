@@ -331,8 +331,8 @@ void Jeu::changeCombinaison()
 	do
 	{
 		cout << "Que voulez vous faire ?" << endl;
-		cout << "1. Rajouter une carte a l'arriere" << endl;
-		cout << "2. Rajouter une carte a l'avant" << endl;
+		cout << "1. Rajouter une carte a l'droite" << endl;
+		cout << "2. Rajouter une carte a l'gauche" << endl;
 		if (plateau_.getCombinaison(id - 1).hasJoker())
 		{
 			cout << "3. Remplacer le joker" << endl;
@@ -342,50 +342,69 @@ void Jeu::changeCombinaison()
 			cout << "3. Annuler" << endl;
 		}
 		cin >> choix;
-	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id).hasJoker())));
-	vector<Carte> main = joueurs_[numJoueur_].getMain();
-	vector<Carte> cartes;
-	joueurs_[numJoueur_].afficherMain();
-	cout << "Choisir l'id d'une carte : " << endl;
-	cin >> id2;
+	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id-1).hasJoker())));
+	if (choix == "4"|| (choix == "3" && !plateau_.getCombinaison(id - 1).hasJoker())) {
+	}
+	else
+	{
 
-	if (choix == "1") {
-		cartes = plateau_.getCombinaison(id - 1).getCartes();
-		cartes.push_back(joueurs_[numJoueur_].getMain()[id2 - 1]);
-		Combinaison combinaison(cartes);
-		combinaison.afficherCombinaison();
-		if (combinaison.isValid())
-		{
-			plateau_.setCombinaison(id - 1, combinaison);
-			main.erase(main.begin() + id2 - 1);
-			joueurs_[numJoueur_].setMain(main);
+		vector<Carte> main = joueurs_[numJoueur_].getMain();
+		vector<Carte> cartes;
+		joueurs_[numJoueur_].afficherMain();
+		cout << "Choisir l'id d'une carte : " << endl;
+		cin >> id2;
+
+		if (choix == "1") {
+			cartes = plateau_.getCombinaison(id - 1).getCartes();
+			cartes.push_back(joueurs_[numJoueur_].getMain()[id2 - 1]);
+			Combinaison combinaison(cartes);
+			combinaison.afficherCombinaison();
+			if (combinaison.isValid())
+			{
+				plateau_.setCombinaison(id - 1, combinaison);
+				main.erase(main.begin() + id2 - 1);
+				joueurs_[numJoueur_].setMain(main);
+			}
 		}
-	}
 
-	else if (choix == "2") {
-		cartes = plateau_.getCombinaison(id - 1).getCartes();
-
-		for (int i = cartes.size(); i < 1; i++)
-		{
-			cartes[i] = cartes[i - 1];
+		else if (choix == "2") {
+			cartes = plateau_.getCombinaison(id - 1).getCartes();
+			cartes.insert(cartes.begin(), joueurs_[numJoueur_].getMain()[id2 - 1]);
+			Combinaison combinaison(cartes);
+			combinaison.afficherCombinaison();
+			if (combinaison.isValid())
+			{
+				plateau_.setCombinaison(id - 1, combinaison);
+				main.erase(main.begin() + id2 - 1);
+				joueurs_[numJoueur_].setMain(main);
+			}
 		}
-		cartes[0] = joueurs_[numJoueur_].getMain()[id2 - 1];
-		Combinaison combinaison(cartes);
-		combinaison.afficherCombinaison();
-		if (combinaison.isValid())
-		{
-			plateau_.setCombinaison(id - 1, combinaison);
-			main.erase(main.begin() + id2 - 1);
-			joueurs_[numJoueur_].setMain(main);
-		}
-	}
-	else if (choix == "3") {
-		cout << "Joker";
-	}
-	else if (choix == "4") {
-		cout << "Joker";
-	}
+		else if (choix == "3") {
+			int ij=0;
+			cartes = plateau_.getCombinaison(id - 1).getCartes();
+			for (int i = 0; i < (int)cartes.size(); i++)
+			{
+				if (cartes[i].getValeur() == "x")
+				{
+					ij = i;
 
+				}
+			}
+			Carte Joker = cartes[ij];
+			cartes.erase(cartes.begin() + ij);
+			cartes.insert(cartes.begin()+ij, joueurs_[numJoueur_].getMain()[id2 - 1]);
+			Combinaison combinaison(cartes);
+			combinaison.afficherCombinaison();
+			if (combinaison.isValid())
+			{
+				plateau_.setCombinaison(id - 1, combinaison);
+				main.erase(main.begin() + id2 - 1);
+				main.insert(main.begin() + id2 - 1, Joker);
+				joueurs_[numJoueur_].setMain(main);
+			}
+		}
+
+	}
 }
 
 void Jeu::afficherRegles() {
