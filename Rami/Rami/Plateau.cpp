@@ -41,6 +41,12 @@ void Plateau::modifierCombinaison(Combinaison & Combinaison,int id)
 
 }
 
+void Plateau::clearPlateau()
+{
+	combinaisons_.clear();
+	nombreCombinaison_ = 0;
+}
+
 
 Plateau::~Plateau()
 {

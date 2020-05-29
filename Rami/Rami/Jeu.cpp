@@ -50,18 +50,19 @@ void Jeu::effectuerTour()
 				system("PAUSE");
 				system("CLS");
 				joueurs_[numJoueur_].piocher();
+				system("PAUSE");
 			}
 			else if (c == "2") {
 				if (pioche_.getTailleDefausse() == 0) {
 					cout << "Pas de carte dans la defausse, piochez" << endl;
 					system("PAUSE");
 					joueurs_[numJoueur_].piocher();
+					system("PAUSE");
 				}
 				else {
 					system("PAUSE");
 					system("CLS");
 					joueurs_[numJoueur_].tirerDefausse();
-					system("CLS");
 				}
 			}
 			menuTour();
@@ -95,12 +96,14 @@ void Jeu::effectuerTour()
 			system("PAUSE");
 			system("CLS");
 			joueurs_[numJoueur_].piocher();
+			system("PAUSE");
 		}
 		else if (c == "2") {
 			if (pioche_.getTailleDefausse() == 0) {
 				cout << "Pas de carte dans la defausse, piochez" << endl;
 				system("PAUSE");
 				joueurs_[numJoueur_].piocher();
+				system("PAUSE");
 			}
 			else {
 				system("PAUSE");
@@ -600,8 +603,10 @@ void Jeu::exec() {
 			}
 		}
 		pioche_ = Pioche(nom_);
+		plateau_.clearPlateau();
 		joueurs_[0].renouvelerCartes();
 		joueurs_[1].renouvelerCartes();
+		system("PAUSE");
 	}
 	if (nbJoueurs_ != 2) {
 		cout << "Abandon d'un joueur" << endl;
@@ -616,7 +621,7 @@ void Jeu::exec() {
 		cout << joueurs_[1].getNom() << "remporte la partie" << endl;
 	}
 	else { cout << "Il y a egalite" << endl; }
-
+	system("PAUSE");
 
 }
 Jeu::~Jeu()
