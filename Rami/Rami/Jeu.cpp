@@ -28,6 +28,7 @@ void Jeu::afficherTour()
 	joueurs_[numJoueur_].afficherMain();
 	cout << "Voici les cartes posees :" << endl;
 	plateau_.afficher();
+	cout << endl;
 }
 
 void Jeu::effectuerTour()
@@ -308,7 +309,7 @@ void Jeu::poseCombinaison()
 				{
 
 					plateau_.ajouterCombinaison(combinaisons[j]);
-					joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[j].getCartes().size())());
+					joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[j].getCartes().size());
 				}
 				joueurs_[numJoueur_].setMain(main);
 			}
@@ -344,8 +345,8 @@ void Jeu::changeCombinaison()
 			cout << "3. Annuler" << endl;
 		}
 		cin >> choix;
-	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id-1).hasJoker())));
-	if (choix == "4"|| (choix == "3" && !plateau_.getCombinaison(id - 1).hasJoker())) {
+	} while (!(choix == "1" || choix == "2" || choix == "3" || (choix == "4" && plateau_.getCombinaison(id - 1).hasJoker())));
+	if (choix == "4" || (choix == "3" && !plateau_.getCombinaison(id - 1).hasJoker())) {
 	}
 	else
 	{
@@ -380,11 +381,11 @@ void Jeu::changeCombinaison()
 				plateau_.setCombinaison(id - 1, combinaison);
 				main.erase(main.begin() + id2 - 1);
 				joueurs_[numJoueur_].setMain(main);
-				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() -1);
+				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - 1);
 			}
 		}
 		else if (choix == "3") {
-			int ij=0;
+			int ij = 0;
 			cartes = plateau_.getCombinaison(id - 1).getCartes();
 			for (int i = 0; i < (int)cartes.size(); i++)
 			{
@@ -396,7 +397,7 @@ void Jeu::changeCombinaison()
 			}
 			Carte Joker = cartes[ij];
 			cartes.erase(cartes.begin() + ij);
-			cartes.insert(cartes.begin()+ij, joueurs_[numJoueur_].getMain()[id2 - 1]);
+			cartes.insert(cartes.begin() + ij, joueurs_[numJoueur_].getMain()[id2 - 1]);
 			Combinaison combinaison(cartes);
 			combinaison.afficherCombinaison();
 			if (combinaison.isValid())
@@ -552,13 +553,13 @@ void Jeu::chargerJeu() {
 			vector<Combinaison> combinaisons;
 			while (i < nb) {
 				Combinaison c;
-				while (valeur != "NC") {
+				do {
 					ifile >> valeur;
 					ifile >> couleur;
 					if (valeur != "NC" && couleur != "NC") {
 						c.ajouterCarte(Carte(valeur, couleur));
 					}
-				}
+				} while (valeur != "NC");
 				i++;
 				combinaisons.push_back(c);
 			}
@@ -569,10 +570,15 @@ void Jeu::chargerJeu() {
 }
 
 void Jeu::abandonner() {
-	nbJoueurs_--;
-	sauverJeu();
-	cout << "__________________" << endl;
-	cout << "FIN DE LA PARTIE" << endl;
+	cout << "Voulez-vous vraiment abandonner o/n ?" << endl;
+	string ch;
+	cin >> ch;
+	if (ch == "o") {
+		nbJoueurs_--;
+		sauverJeu();
+		cout << "__________________" << endl;
+		cout << "FIN DE LA PARTIE" << endl;
+	}
 }
 
 void Jeu::exec() {
