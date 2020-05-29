@@ -24,7 +24,7 @@ public:
 	bool getPose() { return premierePose_; }
 	int getNombreCarte() { return nombreCarte_; }
 	void setNom(string value) { nom_ = value; }
-	bool setPose(bool b) {  premierePose_=b; }
+	void setPose(bool b) {  premierePose_=b; }
 	void setId(string value) { id_ = value; }
 	void setScore(int value) { score_ = value; }
 	void setNombreCarte(int value) { nombreCarte_ = value; }

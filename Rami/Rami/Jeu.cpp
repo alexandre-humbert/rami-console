@@ -297,6 +297,7 @@ void Jeu::poseCombinaison()
 				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[k].getCartes().size());
 			}
 			joueurs_[numJoueur_].setMain(main);
+			joueurs_[numJoueur_].setPose(true);
 		}
 		else
 		{
@@ -318,7 +319,7 @@ void Jeu::poseCombinaison()
 			}
 			else
 			{
-				cout << "La combinaison doit faire " << to_string(POINTS_MIN) << " points" << endl;
+				cout << "Les combinaisons doivent faire plus de " << to_string(POINTS_MIN) << " points" << endl;
 				system("PAUSE");
 				system("CLK");
 			}
@@ -599,7 +600,7 @@ void Jeu::exec() {
 		joueurs_[1].compterPoints();
 		for (int i = 0; i < 2; i++) {
 			if (joueurs_[i].getNombreCarte() == 0) {
-				cout << joueurs_[i].getNom() << "remporte la manche" << endl;
+				cout << joueurs_[i].getNom() << " remporte la manche" << endl;
 			}
 		}
 		pioche_ = Pioche(nom_);
