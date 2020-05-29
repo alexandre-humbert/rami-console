@@ -290,6 +290,7 @@ void Jeu::poseCombinaison()
 			for (int k = 0; k < combinaisons.size(); k++)
 			{
 				plateau_.ajouterCombinaison(combinaisons[k]);
+				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[k].getCartes().size());
 			}
 			joueurs_[numJoueur_].setMain(main);
 		}
@@ -307,6 +308,7 @@ void Jeu::poseCombinaison()
 				{
 
 					plateau_.ajouterCombinaison(combinaisons[j]);
+					joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[j].getCartes().size());
 				}
 				joueurs_[numJoueur_].setMain(main);
 			}
