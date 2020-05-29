@@ -308,7 +308,7 @@ void Jeu::poseCombinaison()
 				{
 
 					plateau_.ajouterCombinaison(combinaisons[j]);
-					joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[j].getCartes().size());
+					joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - combinaisons[j].getCartes().size())());
 				}
 				joueurs_[numJoueur_].setMain(main);
 			}
@@ -366,6 +366,7 @@ void Jeu::changeCombinaison()
 				plateau_.setCombinaison(id - 1, combinaison);
 				main.erase(main.begin() + id2 - 1);
 				joueurs_[numJoueur_].setMain(main);
+				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() - 1);
 			}
 		}
 
@@ -379,6 +380,7 @@ void Jeu::changeCombinaison()
 				plateau_.setCombinaison(id - 1, combinaison);
 				main.erase(main.begin() + id2 - 1);
 				joueurs_[numJoueur_].setMain(main);
+				joueurs_[numJoueur_].setNombreCarte(joueurs_[numJoueur_].getNombreCarte() -1);
 			}
 		}
 		else if (choix == "3") {
