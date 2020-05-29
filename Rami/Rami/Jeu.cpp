@@ -337,8 +337,8 @@ void Jeu::changeCombinaison()
 	do
 	{
 		cout << "Que voulez vous faire ?" << endl;
-		cout << "1. Rajouter une carte a l'droite" << endl;
-		cout << "2. Rajouter une carte a l'gauche" << endl;
+		cout << "1. Rajouter une carte a droite" << endl;
+		cout << "2. Rajouter une carte a gauche" << endl;
 		if (plateau_.getCombinaison(id - 1).hasJoker())
 		{
 			cout << "3. Remplacer le joker" << endl;
@@ -603,6 +603,7 @@ void Jeu::exec() {
 			}
 		}
 		pioche_ = Pioche(nom_);
+		tour_ = 1;
 		plateau_.clearPlateau();
 		joueurs_[0].renouvelerCartes();
 		joueurs_[1].renouvelerCartes();
@@ -615,15 +616,15 @@ void Jeu::exec() {
 	cout << "FIN DE LA PARTIE" << endl;
 	cout << "_______________" << endl;
 	if (joueurs_[0].getScore() > joueurs_[1].getScore()){
-		cout << joueurs_[0].getNom() << "remporte la partie" << endl;
+		cout << joueurs_[1].getNom() << " remporte la partie" << endl;
 	}
 	else if (joueurs_[1].getScore() > joueurs_[1].getScore()) {
-		cout << joueurs_[1].getNom() << "remporte la partie" << endl;
+		cout << joueurs_[0].getNom() << " remporte la partie" << endl;
 	}
 	else { cout << "Il y a egalite" << endl; }
 	system("PAUSE");
-
 }
+
 Jeu::~Jeu()
 {
 	od.delFile("Rami/" + nom_ + ".txt");
