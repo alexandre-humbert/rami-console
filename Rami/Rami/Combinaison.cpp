@@ -48,7 +48,7 @@ void Combinaison::afficherCombinaison()
 
 bool Combinaison::hasJoker()
 {
-	for (int i = 0; i < (int)cartes_.size() - 1; i++)
+	for (int i = 0; i < (int)cartes_.size(); i++)
 	{
 		if (cartes_[i].getValeur()=="x")
 		{
