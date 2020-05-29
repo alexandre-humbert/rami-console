@@ -26,6 +26,8 @@ void Jeu::afficherTour()
 	}
 	cout << "Vos cartes : " << endl;
 	joueurs_[numJoueur_].afficherMain();
+	cout << "Voici les cartes posees :" << endl;
+	plateau_.afficher();
 }
 
 void Jeu::effectuerTour()
@@ -61,7 +63,13 @@ void Jeu::effectuerTour()
 					system("CLS");
 				}
 			}
-			menuTour();		
+			menuTour();
+			if (nbJoueurs_ != 2) { return; }
+			tour_++;
+			sauverJeu();
+			cout << "_________________" << endl;
+			cout << "Fin de votre tour" << endl;
+			cout << "_________________" << endl;
 			cout << " C'est au joueur adverse de jouer" << endl;
 			od.waitForChange("Rami/" + nom_ + ".txt");
 			chargerJeu();
@@ -71,6 +79,7 @@ void Jeu::effectuerTour()
 		cout << "C'est au joueur adverse de jouer" << endl;
 		od.waitForChange("Rami/" + nom_ + ".txt");
 		chargerJeu();
+		if (nbJoueurs_ != 2) { return; }
 		cout << "_________________" << endl;
 		cout << "C'est votre tour" << endl;
 		cout << "_________________" << endl;
@@ -137,13 +146,6 @@ void Jeu::menuTour() {
 	}
 	else if (choix =="4") {
 		abandonner();
-	}
-	if (choix != "4") {
-		tour_++;
-		sauverJeu();
-		cout << "_________________" << endl;
-		cout << "Fin de votre tour" << endl;
-		cout << "_________________" << endl;
 	}
 }
 
@@ -548,7 +550,6 @@ void Jeu::abandonner() {
 	sauverJeu();
 	cout << "__________________" << endl;
 	cout << "FIN DE LA PARTIE" << endl;
-	cout << " Abandon d'un des joueurs" << endl;
 }
 
 void Jeu::exec() {
@@ -573,13 +574,20 @@ void Jeu::exec() {
 		joueurs_[0].renouvelerCartes();
 		joueurs_[1].renouvelerCartes();
 	}
+	if (nbJoueurs_ != 2) {
+		cout << "Abandon d'un joueur" << endl;
+	}
+	cout << "_______________" << endl;
+	cout << "FIN DE LA PARTIE" << endl;
+	cout << "_______________" << endl;
 	if (joueurs_[0].getScore() > joueurs_[1].getScore()){
 		cout << joueurs_[0].getNom() << "remporte la partie" << endl;
 	}
 	else if (joueurs_[1].getScore() > joueurs_[1].getScore()) {
 		cout << joueurs_[1].getNom() << "remporte la partie" << endl;
 	}
-	else { cout << "Egalite" << endl; }
+	else { cout << "Il y a egalite" << endl; }
+
 
 }
 Jeu::~Jeu()

@@ -22,7 +22,6 @@ Pioche::Pioche(string name)
 		cartes_.push_back(Carte("10", "Ca"));
 		cartes_.push_back(Carte("11", "Ca"));
 		cartes_.push_back(Carte("12", "Ca"));
-		cartes_.push_back(Carte("13", "Ca"));
 		cartes_.push_back(Carte("1", "Co"));
 		cartes_.push_back(Carte("2", "Co"));
 		cartes_.push_back(Carte("3", "Co"));
@@ -34,8 +33,6 @@ Pioche::Pioche(string name)
 		cartes_.push_back(Carte("9", "Co"));
 		cartes_.push_back(Carte("10", "Co"));
 		cartes_.push_back(Carte("11", "Co"));
-		cartes_.push_back(Carte("12", "Co"));
-		cartes_.push_back(Carte("13", "Co"));
 		cartes_.push_back(Carte("1", "P"));
 		cartes_.push_back(Carte("2", "P"));
 		cartes_.push_back(Carte("3", "P"));
@@ -48,8 +45,8 @@ Pioche::Pioche(string name)
 		cartes_.push_back(Carte("10", "P"));
 		cartes_.push_back(Carte("11", "P"));
 		cartes_.push_back(Carte("12", "P"));
-		cartes_.push_back(Carte("13", "P"));
 		cartes_.push_back(Carte("1", "T"));
+		cartes_.push_back(Carte("12", "Co"));
 		cartes_.push_back(Carte("2", "T"));
 		cartes_.push_back(Carte("3", "T"));
 		cartes_.push_back(Carte("4", "T"));
@@ -61,7 +58,10 @@ Pioche::Pioche(string name)
 		cartes_.push_back(Carte("10", "T"));
 		cartes_.push_back(Carte("11", "T"));
 		cartes_.push_back(Carte("12", "T"));
+		cartes_.push_back(Carte("13", "Co"));
 		cartes_.push_back(Carte("13", "T"));
+		cartes_.push_back(Carte("13", "Ca"));
+		cartes_.push_back(Carte("13", "P"));
 		cartes_.push_back(Carte("x", "x"));
 	}
 	else {
