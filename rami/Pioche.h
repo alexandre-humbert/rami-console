@@ -4,8 +4,7 @@
 #include <vector>
 #include "Carte.h"
 /*Cette classe va gérer à la fois la pioche et la défausse du jeu.
-Elle contient un vecteur de cartes pour la pioche et un vecteur de carte pour la défausse.
-*/
+Elle contient un vecteur de cartes pour la pioche et un vecteur de carte pour la défausse. */
 class Pioche
 {
 	vector<Carte> cartes_;//On a comme attribut des vecteurs de Carte qui correspondent respectivement à la pioche et à la défausse.

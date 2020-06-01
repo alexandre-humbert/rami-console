@@ -1,4 +1,4 @@
-// Classe Jeu réalisée par Alexandre Humbertet Aurélien Arbaretaz 
+ï»¿// Classe Jeu rÃ©alisÃ©e par Alexandre Humbert et AurÃ©lien Arbaretaz 
 
 #pragma once
 #include <vector>
@@ -11,29 +11,29 @@ class Jeu
 {
 	string nom_ = "Partie"; // Le nom de la partie
 	int nbJoueurs_ = 0; // Le nombre de joueurs
-	int numJoueur_ = 0; // Le numéro du joueur
+	int numJoueur_ = 0; // Le numÃ©ro du joueur
 	vector<Joueur>joueurs_; // Un vecteur de joueurs
 	Plateau	plateau_; // Un plateau
-	Pioche pioche_; // Une pioche (et défausse)
-	int tour_ = 1; // Le numéro du tour en cours.
+	Pioche pioche_; // Une pioche (et dÃ©fausse)
+	int tour_ = 1; // Le numÃ©ro du tour en cours.
 	ODrive od;
 public:
 
 	Jeu();
 	void afficherBootScreen(); // affiche un dessin au lancement.
-	void menuTour(); // affiche les possibilité du joeur à chaque tour.
-	void demarrerPartie(); // Permet de chosiir entre créer et rejoindre une partie.
-	void creerPartie(); // Permet de créer une nouvelle partie.
-	void rejoindrePartie(); // Permet de rejoindre une partie déjà créée.
+	void menuTour(); // affiche les possibilitÃ© du joeur Ã  chaque tour.
+	void demarrerPartie(); // Permet de chosiir entre crÃ©er et rejoindre une partie.
+	void creerPartie(); // Permet de crÃ©er une nouvelle partie.
+	void rejoindrePartie(); // Permet de rejoindre une partie dÃ©jÃ  crÃ©Ã©e.
 	void nouveauJoueur(string nom, string id); // Ajoute un nouveau joueur avec un nom et un id.
-	void afficherTour(); // Affiche le score, le nombre de carte et le nom de joueurs ainsi que les cartes du joueur et la première carte de la défausse et les combinaisons.
+	void afficherTour(); // Affiche le score, le nombre de carte et le nom de joueurs ainsi que les cartes du joueur et la premiÃ¨re carte de la dÃ©fausse et les combinaisons.
 	void effectuerTour(); // permet d'effectuer un tour complet (poser, modifier des combinaisons)
-	void poseCombinaison(); // Permet de poser une combianaison sur le plateau en demandant les cartes à mettre.
-	void changeCombinaison(); // Permet de modifier une combinaisons déjà posée en demandant les changement à faire.
-	void afficherRegles(); // Affiche les règles (au lancement du jeu)
+	void poseCombinaison(); // Permet de poser une combianaison sur le plateau en demandant les cartes Ã  mettre.
+	void changeCombinaison(); // Permet de modifier une combinaisons dÃ©jÃ  posÃ©e en demandant les changement Ã  faire.
+	void afficherRegles(); // Affiche les rÃ¨gles (au lancement du jeu)
 	void sauverJeu(); // Sauvegarde la pioche, le plateau, les joueurs dans un fichier texte.
-	void chargerJeu(); // Charge le plateau, la pîoche, les joueurs à partir du fichier texte.
+	void chargerJeu(); // Charge le plateau, la pÃ®oche, les joueurs Ã  partir du fichier texte.
 	void abandonner(); // Permet d'abandonner en modifiant le fichier de sauvegarde.
-	void exec(); // Contient tout le déroulement d'une partie à parir des fonctions précédentes.
+	void exec(); // Contient tout le dÃ©roulement d'une partie Ã  parir des fonctions prÃ©cÃ©dentes.
 	~Jeu(); // Destructeur de Jeu, supprime les fichiers de sauvegarde.
 };
