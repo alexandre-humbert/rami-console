@@ -1,3 +1,5 @@
+// Classe Combinaison réalisée par Aurélien Arbaretaz
+
 #pragma once
 #include <vector> 
 #include <string>
@@ -14,7 +16,7 @@ public:
 	
 	Combinaison();//On a deux constructeurs avec des paramètres en entrée ou non.
 	Combinaison(vector<Carte>& cartes);
-	vector<Carte> sortCarte(vector<Carte>& cartes);
+	bool hasJoker(); // Retourne vrai si la combinaison contient un joker.
 	void afficherCombinaison();//Affiche une combinaison de carte.
 	Carte getCarte(int id) { return cartes_[id]; }//On pourra obtenir une carte à partir de son id 
 	vector<Carte> getCartes() { return cartes_; }//ou obtenir toutes les cartes avec getCartes.

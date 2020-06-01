@@ -1,7 +1,9 @@
+// Classe Plateau réalisée par Alexandre Humbert
+
 #pragma once
 #include "Combinaison.h"
 #include <vector>
-//Plateau est la clesse qui va nous permettre de poser des combinaisons. On pourra également les modifier.
+//Plateau est la classe qui va nous permettre de poser des combinaisons. On pourra également les modifier.
 class Plateau
 {
 	vector<Combinaison> combinaisons_;//Un vecteur qui contient chacune des combinaison du plateau.

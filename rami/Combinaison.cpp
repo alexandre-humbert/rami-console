@@ -9,33 +9,11 @@ Combinaison::Combinaison()
 
 Combinaison::Combinaison(vector<Carte>& cartes)
 {
-
-	//std::sort(cartes.begin(), cartes.end());
 	cartes_ = cartes;
 }
 
-/*vector<Carte> Combinaison::sortCarte(vector<Carte>& cartes)
-{
-	if (cartes.size() > 1)
-	{
-		int i, j, min;
-		Carte temp("0", "0");
-		for (i = 0; i < (int)cartes.size() - 1; i++) 
-		{
-			min = i;
-			for (j = i + 1; j < (int)cartes.size(); j++)
-			{
-				if (cartes[j] < cartes[min])
-					min = j;
-			}
-			temp = cartes[i];
-			cartes[i] = cartes[min];
-			cartes[min] = temp;
-		}
-	}
-	return cartes;
-}*/
 
+// Affiche les combinaisons sur la sortie standard
 void Combinaison::afficherCombinaison()
 {
 	for (int j = 0; j < (int)cartes_.size(); j++)
@@ -45,7 +23,7 @@ void Combinaison::afficherCombinaison()
 		std::cout << " ";
 	}
 }
-
+// Vérifie si la combinaison contient un joker
 bool Combinaison::hasJoker()
 {
 	for (int i = 0; i < (int)cartes_.size(); i++)
@@ -58,7 +36,7 @@ bool Combinaison::hasJoker()
 	return false;
 }
 
-
+// Vérifie si la combinaison est valide
 bool Combinaison::isValid()
 {
 	if ((cartes_.size() > 2)&&(isBrelan() || isSuite() || isCarre()))
@@ -66,6 +44,7 @@ bool Combinaison::isValid()
 	return false;
 }
 
+// Vérifie si la combinaison est un brelan
 bool Combinaison::isBrelan()
 {
 	if (cartes_.size() != 3)
@@ -79,6 +58,7 @@ bool Combinaison::isBrelan()
 			return false;
 }
 
+// Vérifie si la combinaison est une suite
 bool Combinaison::isSuite()
 {
 	if (cartes_.size() < 3)
@@ -118,6 +98,7 @@ bool Combinaison::isSuite()
 	return false;
 }
 
+// Vérifie si la combinaison est un carré
 bool Combinaison::isCarre()
 {
 	if (cartes_.size() != 4)
@@ -133,6 +114,7 @@ bool Combinaison::isCarre()
 	return false;
 }
 
+// Calcul la valeur d'une combinaison
 int Combinaison::getScore()
 {
 	int score = 0;

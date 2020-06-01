@@ -11,6 +11,7 @@ Jeu::Jeu()
 
 }
 
+// Affiche les données importantes du jeu.
 void Jeu::afficherTour()
 {
 	cout << "Tour " << tour_ << endl;
@@ -31,6 +32,7 @@ void Jeu::afficherTour()
 	cout << endl;
 }
 
+// Gère le déroulement d'un tour selon qu'on est le joueur 1 (0) ou le joueur 2 (1)
 void Jeu::effectuerTour()
 {
 	system("CLS");
@@ -120,7 +122,7 @@ void Jeu::effectuerTour()
 	}
 }
 
-
+// Affiche le menu des possibilités à chaque tour
 void Jeu::menuTour() {
 	system("CLS");
 	string choix = "0";
@@ -153,6 +155,7 @@ void Jeu::menuTour() {
 	}
 }
 
+// Affiche un dessin aSCII au démarrage
 void Jeu::afficherBootScreen() {
 	cout << " " << endl;
 	cout << "            _____" << endl;
@@ -177,6 +180,8 @@ void Jeu::afficherBootScreen() {
 
 
 }
+
+// Permet de chosir s'il on veut créer ou rejoindre une partie
 void Jeu::demarrerPartie() {
 	system("CLS");
 	cout << "Que voulez-vous faire :" << endl;
@@ -190,6 +195,7 @@ void Jeu::demarrerPartie() {
 
 }
 
+// Permet de créer une nouvelle partie.
 void Jeu::creerPartie() {
 	system("CLS");
 	string baseDir = "Rami";
@@ -213,7 +219,7 @@ void Jeu::creerPartie() {
 	chargerJeu();
 }
 
-
+// Permet de rejoindre une partie déjà créée.
 void Jeu::rejoindrePartie() {
 	system("CLS");
 	string baseDir = "Rami";
@@ -243,11 +249,13 @@ void Jeu::rejoindrePartie() {
 	}
 }
 
+// Ajoute un nouveau joueur à joueurs_
 void Jeu::nouveauJoueur(string nom, string id) {
 	joueurs_.push_back(Joueur(nom, id, &pioche_));
 	nbJoueurs_++;
 }
 
+// Gère la saisie et l'affichage pour poser une combinaison
 void Jeu::poseCombinaison()
 {
 	vector<Combinaison> combinaisons;
@@ -327,6 +335,7 @@ void Jeu::poseCombinaison()
 	}
 }
 
+// Gère la saisie pour changer une combinaison
 void Jeu::changeCombinaison()
 {
 	int id = 0;
@@ -415,7 +424,7 @@ void Jeu::changeCombinaison()
 
 	}
 }
-
+// Affiche les règles
 void Jeu::afficherRegles() {
 	cout << "Voici les regles et le fonctionnement de ce jeu. " << endl;
 	cout << " Chaque joueur dispose de 7 cartes. Vous devez poser des combinaions de cartes (brelan, carre, suite)" << endl;
@@ -603,13 +612,17 @@ void Jeu::exec() {
 				cout << joueurs_[i].getNom() << " remporte la manche" << endl;
 			}
 		}
+		// On remet tout à zéro
 		pioche_ = Pioche(nom_);
 		tour_ = 1;
 		plateau_.clearPlateau();
 		joueurs_[0].renouvelerCartes();
 		joueurs_[1].renouvelerCartes();
+		joueurs_[0].setPose(false);
+		joueurs_[1].setPose(false);
 		system("PAUSE");
 	}
+	// S'il n'y a plus 2 joueurs, alors l'un a abandoné
 	if (nbJoueurs_ != 2) {
 		cout << "Abandon d'un joueur" << endl;
 	}

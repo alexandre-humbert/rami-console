@@ -1,3 +1,6 @@
+// Classe Carte réalisée par Aurélien Arbaretaz
+
+
 #pragma once
 #include <string>
 
