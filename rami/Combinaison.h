@@ -9,7 +9,6 @@
 class Combinaison
 {
 	vector<Carte> cartes_;//Une combinaison sera composée d'un vecteur de cartes.
-	//enum combin { Suite, Brelan, Carré };
 public:
 	
 	Combinaison();//On a deux constructeurs avec des paramètres en entrée ou non.
