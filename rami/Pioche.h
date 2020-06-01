@@ -1,13 +1,12 @@
 #pragma once
 #include <vector>
 #include "Carte.h"
-//Cette classe va gérer à la fois la pioche et la défausse du jeu.
-
+/*Cette classe va gérer à la fois la pioche et la défausse du jeu.
 mélanger permet de mélanger les cartes de la pioche.\newline
-Lorsque la pioche est vide on peut utiliser la défausse pour la renouveler.\newline
-tirerCarte permet à un joueur de tirer une carte sur le dessus de la pioche.\newline
-\newline
-On peut prendre la carte de la déffausse avec prendreDeffausse.\newline
+Lorsque la pioche est vide on peut utiliser la défausse pour la renouveler.
+tirerCarte permet à un joueur de tirer une carte sur le dessus de la pioche.
+On peut prendre la carte de la déffausse avec prendreDeffausse.
+*/
 class Pioche
 {
 	vector<Carte> cartes_;//On a comme attribut des vecteurs de Carte qui correspondent respectivement à la pioche et à la défausse.

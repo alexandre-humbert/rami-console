@@ -13,27 +13,27 @@
 	<style type="text/css">
 	<![CDATA[
 		.st1 {fill:none;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.5}
-		.st2 {marker-end:url(#mrkr12-25);stroke:#5592c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:3}
+		.st2 {marker-start:url(#mrkr22-25);stroke:#5592c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:3}
 		.st3 {fill:#5592c9;fill-opacity:1;stroke:#5592c9;stroke-opacity:1;stroke-width:0.54347826086957}
-		.st4 {marker-start:url(#mrkr22-32);stroke:#5592c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:3}
+		.st4 {marker-end:url(#mrkr12-62);stroke:#5592c9;stroke-linecap:round;stroke-linejoin:round;stroke-width:3}
 		.st5 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
 	]]>
 	</style>
 
 	<defs id="Markers">
-		<g id="lend12">
-			<path d="M 3 1 L 0 0 L 3 -1 " style="stroke-linecap:round;stroke-linejoin:round;fill:none"/>
-		</g>
-		<marker id="mrkr12-25" class="st3" v:arrowType="12" v:arrowSize="2" orient="auto" markerUnits="strokeWidth"
-				overflow="visible">
-			<use xlink:href="#lend12" transform="scale(-1.84,-1.84) "/>
-		</marker>
 		<g id="lend22">
 			<path d="M 0 0 L 2.25 -1.125 L 4.5 0 L 2.25 1.125 L 0 0 " style="stroke-linecap:round;stroke-linejoin:round;fill:none"/>
 		</g>
-		<marker id="mrkr22-32" class="st3" v:arrowType="22" v:arrowSize="2" v:setback="8.16" refX="8.16" orient="auto"
+		<marker id="mrkr22-25" class="st3" v:arrowType="22" v:arrowSize="2" v:setback="8.16" refX="8.16" orient="auto"
 				markerUnits="strokeWidth" overflow="visible">
 			<use xlink:href="#lend22" transform="scale(1.84) "/>
+		</marker>
+		<g id="lend12">
+			<path d="M 3 1 L 0 0 L 3 -1 " style="stroke-linecap:round;stroke-linejoin:round;fill:none"/>
+		</g>
+		<marker id="mrkr12-62" class="st3" v:arrowType="12" v:arrowSize="2" orient="auto" markerUnits="strokeWidth"
+				overflow="visible">
+			<use xlink:href="#lend12" transform="scale(-1.84,-1.84) "/>
 		</marker>
 	</defs>
 	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
@@ -1752,13 +1752,13 @@
 			</switch>
 			<rect v:rectContext="foreign" x="0" y="552.756" width="152.544" height="289.134" class="st1"/>
 		</g>
-		<g id="shape3-7" v:mID="3" v:groupContext="shape" transform="translate(364.252,-457.795)">
+		<g id="shape3-7" v:mID="3" v:groupContext="shape" transform="translate(364.252,-453.543)">
 			<title>Feuille.3</title>
-			<rect v:rectContext="foreign" x="0" y="475.795" width="215.339" height="366.094" class="st1"/>
+			<rect v:rectContext="foreign" x="0" y="471.543" width="215.339" height="370.346" class="st1"/>
 			<switch>
-				<foreignObject x="-3.5601" y="475.795" width="218.899" height="372.037"
+				<foreignObject x="-3.5601" y="471.543" width="218.899" height="372.037"
 						requiredExtensions="http://schemas.microsoft.com/visio/2003/SVGExtensions/">
-					<v:foreignData v:orgSize="47640" clip="rect(-5.68434E-14 -5.68434E-14 5.94277 3.5601)" v:data="data:metafile;base64,
+					<v:foreignData v:orgSize="47640" clip="rect(-5.68434E-14 -5.68434E-14 1.69081 3.5601)" v:data="data:metafile;base64,
 								eNrtXQt8VMXVn7ubFwuBJARcASUkVAICRggt0CR7AwEEeURIqFILAUKACgQTEvisSHg0JoCAipggtqCoIELBB+VT+zVSq2CC
 								n1oVrAKpiqlUIy8RFcl3ztwzeyc3u5u7Nw/kM5vfydy5d+7Mf2fmf848zr2rMMbmMP2zXmFsl02PR/VgbMkQCIeNGc6Ywpwv
 								MjbFzpid1f4UBDM2MICxj+D+NkrtaxlDg1llxwAGGbDemCcIZHe9oiqsCxyHgdjCyj7E2zJIMG0myK2UNk4N4OkCtNJc16qB
@@ -1868,8 +1868,8 @@
 								nVmdwp/H38PZvvwhtSHn4tVI07+lM5q516j550FItFPiFj6PugviPdnTsp5yeT72/DG+w178TgzWjU3V+01b6seC03j8f2uV
 								HwQ="/>
 				</foreignObject>
-				<svg viewBox="0 0 404.01 686" clip="rect(-5.68434E-14 -5.68434E-14 5.94277 3.5601)" height="372.037"
-						overflow="hidden" preserveAspectRatio="none" width="218.899" x="-3.5601" y="475.795">
+				<svg viewBox="0 0 404.01 686" clip="rect(-5.68434E-14 -5.68434E-14 1.69081 3.5601)" height="372.037"
+						overflow="hidden" preserveAspectRatio="none" width="218.899" x="-3.5601" y="471.543">
 					<g>
 						<g transform="matrix(96, 0, 0, 96, -1262.4, -86.4)">
 							<g fill="#ffffff">
@@ -2684,7 +2684,7 @@
 					</mask>
 				</svg>
 			</switch>
-			<rect v:rectContext="foreign" x="0" y="475.795" width="215.339" height="366.094" class="st1"/>
+			<rect v:rectContext="foreign" x="0" y="471.543" width="215.339" height="370.346" class="st1"/>
 		</g>
 		<g id="shape4-10" v:mID="4" v:groupContext="shape" transform="translate(12.3779,-18)">
 			<title>Feuille.4</title>
@@ -3525,7 +3525,7 @@
 			</switch>
 			<rect v:rectContext="foreign" x="0" y="656.909" width="163.37" height="184.981" class="st1"/>
 		</g>
-		<g id="shape5-13" v:mID="5" v:groupContext="shape" transform="translate(41.7513,-236.693)">
+		<g id="shape5-13" v:mID="5" v:groupContext="shape" transform="translate(26.8098,-236.693)">
 			<title>Feuille.5</title>
 			<rect v:rectContext="foreign" x="0" y="639.213" width="228.308" height="202.677" class="st1"/>
 			<switch>
@@ -5230,7 +5230,7 @@
 			</switch>
 			<rect v:rectContext="foreign" x="0" y="515.897" width="202.677" height="325.993" class="st1"/>
 		</g>
-		<g id="group76-19" transform="translate(193.802,-533.869)" v:mID="76" v:groupContext="group" v:layerMember="0">
+		<g id="group76-19" transform="translate(378.432,-311.811)" v:mID="76" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5242,17 +5242,19 @@
 				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-2.2204460492503E-16):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-7.3724613922819E-15):32"/>
-				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.090671811020345):1"/>
-				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0):1"/>
-				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.090671811020345):1"/>
-				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(-0.075188369272614):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(1.7763568394003E-15):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-0.075188369272615):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(3.1415926535898):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(3.1415926535898):32"/>
 			</v:userDefs>
 			<title>Lien dynamique</title>
 			<g id="shape76-20" v:mID="76" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M0 841.89 L0 930.88 L285.96 930.88 L285.96 991.15" class="st2"/>
+				<path d="M-24.48 841.89 L-24.84 841.89 L-36.01 841.89 L-36.01 590.5 L-86.64 590.5 A2.3622 2.3622 -180 0 0 -91.36
+							 590.5 L-109.52 590.5" class="st2"/>
 			</g>
 		</g>
-		<g id="group87-26" transform="translate(364.259,-672.236)" v:mID="87" v:groupContext="group" v:layerMember="0">
+		<g id="group87-26" transform="translate(364.259,-722.296)" v:mID="87" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5272,10 +5274,10 @@
 			</v:userDefs>
 			<title>Agrégation</title>
 			<g id="shape87-27" v:mID="87" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M-24.48 834.8 L-24.84 834.8 L-95.34 834.8" class="st4"/>
+				<path d="M-24.48 834.8 L-24.84 834.8 L-95.34 834.8" class="st2"/>
 			</g>
 		</g>
-		<g id="group92-33" transform="translate(149.528,-439.363)" v:mID="92" v:groupContext="group" v:layerMember="0">
+		<g id="group92-32" transform="translate(149.528,-439.363)" v:mID="92" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5295,11 +5297,11 @@
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(1.5559408195939):32"/>
 			</v:userDefs>
 			<title>Agrégation.92</title>
-			<g id="shape92-34" v:mID="92" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M6.74 817.41 L6.75 817.05 L7.8 746.49" class="st4"/>
+			<g id="shape92-33" v:mID="92" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M6.74 817.41 L6.75 817.05 L7.8 746.49" class="st2"/>
 			</g>
 		</g>
-		<g id="group97-39" transform="translate(339.786,-107.632)" v:mID="97" v:groupContext="group" v:layerMember="0">
+		<g id="group97-38" transform="translate(339.786,-122.775)" v:mID="97" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5311,17 +5313,17 @@
 				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
-				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0.0080512842832654):1"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(0.008051284283269):1"/>
 				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0):1"/>
-				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.0080512842832654):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.0080512842832636):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(0):32"/>
 			</v:userDefs>
 			<title>Agrégation.97</title>
-			<g id="shape97-40" v:mID="97" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M24.48 834.8 L24.84 834.8 L38.65 834.8" class="st4"/>
+			<g id="shape97-39" v:mID="97" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M24.48 834.8 L24.84 834.8 L38.65 834.8" class="st2"/>
 			</g>
 		</g>
-		<g id="group102-45" transform="translate(212.606,-92.126)" v:mID="102" v:groupContext="group" v:layerMember="0">
+		<g id="group102-44" transform="translate(212.606,-92.126)" v:mID="102" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5333,18 +5335,18 @@
 				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
-				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(-0.0077510107306056):1"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(-0.007751010730606):1"/>
 				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0):1"/>
-				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-0.0077510107306082):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(-0.0077510107306078):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(3.1415926535898):32"/>
-				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-3.1415926535898):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(3.1415926535898):32"/>
 			</v:userDefs>
 			<title>Agrégation.102</title>
-			<g id="shape102-46" v:mID="102" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M-24.48 834.8 L-24.84 834.8 L-37.2 834.8" class="st4"/>
+			<g id="shape102-45" v:mID="102" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M-24.48 834.8 L-24.84 834.8 L-37.2 834.8" class="st2"/>
 			</g>
 		</g>
-		<g id="group107-51" transform="translate(106.299,-202.974)" v:mID="107" v:groupContext="group" v:layerMember="0">
+		<g id="group107-50" transform="translate(106.299,-202.974)" v:mID="107" v:groupContext="group" v:layerMember="0">
 			<v:userDefs>
 				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
 				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
@@ -5356,15 +5358,58 @@
 				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(0):32"/>
-				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0.0070263561798414):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0.00702635617984):1"/>
 				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0):1"/>
 				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(0.0070263561798423):1"/>
 				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(1.5707963267949):32"/>
 				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(1.5707963267949):32"/>
 			</v:userDefs>
 			<title>Agrégation.107</title>
-			<g id="shape107-52" v:mID="107" v:groupContext="groupContent" v:layerMember="0">
-				<path d="M7.09 817.41 L7.09 817.05 L7.09 808.16" class="st4"/>
+			<g id="shape107-51" v:mID="107" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M7.09 817.41 L7.09 817.05 L7.09 808.16" class="st2"/>
+			</g>
+		</g>
+		<g id="group112-56" transform="translate(519.559,-453.551)" v:mID="112" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(-2.2204460492503E-16):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.03011811023622):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.030118110236221):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-2.2204460492503E-16):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-7.3724613922819E-15):32"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.014363427157304):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-0.014363427157304):1"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+			</v:userDefs>
+			<title>Lien dynamique.112</title>
+			<g id="shape112-57" v:mID="112" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M7.09 841.89 L7.09 910.83" class="st4"/>
+			</g>
+		</g>
+		<g id="group132-63" transform="translate(289.432,-170.81)" v:mID="132" v:groupContext="group" v:layerMember="0">
+			<v:userDefs>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+				<v:ud v:nameU="RelationshipName" v:prompt="" v:val="VT4()"/>
+				<v:ud v:nameU="ShowMulti" v:prompt="" v:val="VT0(0):26"/>
+				<v:ud v:nameU="Identifying" v:prompt="" v:val="VT0(1):26"/>
+				<v:ud v:nameU="DXBegin" v:prompt="" v:val="VT0(2.2204460492503E-16):1"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(-0.03011811023622):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.03011811023622):1"/>
+				<v:ud v:nameU="DYEnd" v:prompt="" v:val="VT0(-2.2204460492503E-16):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(-1.5707963267949):32"/>
+				<v:ud v:nameU="EndAngle" v:prompt="" v:val="VT0(-7.3724613922821E-15):32"/>
+				<v:ud v:nameU="DYBegin" v:prompt="" v:val="VT0(0.11153123738447):1"/>
+				<v:ud v:nameU="DXEnd" v:prompt="" v:val="VT0(0.11153123738447):1"/>
+				<v:ud v:nameU="BeginAngle" v:prompt="" v:val="VT0(1.5707963267949):32"/>
+			</v:userDefs>
+			<title>Association</title>
+			<g id="shape132-64" v:mID="132" v:groupContext="groupContent" v:layerMember="0">
+				<path d="M-0 817.41 L-0 817.05 L-0 381.37 L74.83 381.37" class="st2"/>
 			</g>
 		</g>
 	</g>
